@@ -11,6 +11,12 @@ import '../../assets/css/Navigation.css'
 import {Link} from 'react-router-dom'
 const Navigation: React.FC = () => {
     const color = blue[50]
+    const label = {
+        color : "#020038",
+        fontSize: "16px",
+        fontWeight: "bold",
+        marginTop: "1vh",
+    }
     return (
         <>
         <AppBar position='static' sx={{ backgroundColor: color }}>
@@ -20,16 +26,16 @@ const Navigation: React.FC = () => {
                     <img src={logoWika} alt="logo wika" className='image-size'/>
                 </Grid>
                 <Grid item xs={2}>
-                    <Button variant="text" className='label' component={Link} to='/dashboard'>Dashboard</Button> 
+                    <Button variant="text" sx={label} component={Link} to='/dashboard'>Dashboard</Button> 
                 </Grid>
                 <Grid item xs={2}>
-                    <Button variant="text" className='label' component={Link} to='/projects'>Projects</Button> 
+                    <Button variant="text" sx={label} component={Link} to='/projects'>Projects</Button> 
                 </Grid>
                 <Grid item xs={2}>
-                    <Button variant="text" className='label' component={Link} to='/accounts'>Accounts</Button> 
+                    <Button variant="text" sx={label} component={Link} to='/accounts'>Accounts</Button> 
                 </Grid>
                 <Grid item xs={2}>
-                    <Button variant="text" className='label' component={Link} to='/manage-projects'>Manage Projects</Button> 
+                    <Button variant="text" sx={label} component={Link} to='/manage-projects'>Manage Projects</Button> 
                 </Grid>
             </Grid>
             </Toolbar>
