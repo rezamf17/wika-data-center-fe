@@ -8,6 +8,7 @@ import gambar3 from '../../assets/img/agung-budi-Waskito-large-removebg-preview.
 import gambar4 from '../../assets/img/Hananto-aji-large-removebg-preview.png'
 import gambar5 from '../../assets/img/APR_3557-1-large-removebg-preview.png'
 
+
 const Home: React.FC = () => {
     return(
         <>
