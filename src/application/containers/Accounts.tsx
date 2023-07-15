@@ -1,13 +1,13 @@
 import React from 'react'
 import Navigation from '../components/Navigation'
 
-const Dashboard : React.FC = () => {
+const Accounts : React.FC = () => {
     return (
         <>
         <Navigation />
-        <h1>Dashboard</h1>
+        <h1>Accounts</h1>
         </>
     )
 }
 
-export default Dashboard
+export default Accounts
