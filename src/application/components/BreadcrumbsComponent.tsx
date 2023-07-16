@@ -4,7 +4,6 @@ import { Breadcrumbs,
          Typography
 } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home';
-import GrainIcon from '@mui/icons-material/Grain';
 
 interface BreadcrumbsProps {
   icon: ReactNode;
@@ -12,7 +11,6 @@ interface BreadcrumbsProps {
 }
 
 const BreadcrumbsComponent: React.FC<BreadcrumbsProps> = ({title, icon}) => {
-  console.log(title)
     return (  
         <>
         <Breadcrumbs aria-label="breadcrumb">
