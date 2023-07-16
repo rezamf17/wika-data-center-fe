@@ -7,14 +7,17 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 
 const Projects : React.FC = () => {
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 100 },
-        { field: 'firstName', headerName: 'First Name', width: 150 },
-        { field: 'lastName', headerName: 'Last Name', width: 150 },
-        { field: 'age', headerName: 'Age', type: 'number', width: 100 },
+        { field: 'id', headerName: 'No', width: 50 },
+        { field: 'projectName', headerName: 'Project Name', width: 200 },
+        { field: 'documentTitle', headerName: 'Document Title', width: 200 },
+        { field: 'documentCategory', headerName: 'Document Category', width: 150 },
+        { field: 'department', headerName: 'Department', width: 150 },
+        { field: 'type', headerName: 'Type', width: 100 },
+        { field: 'industry', headerName: 'Industry', width: 100 },
         {
           field: 'action',
           headerName: 'Action',
-          width: 150,
+          width: 200,
           renderCell: (params: GridRenderCellParams) => {
             const onClickHandler = () => {
               // Aksi yang ingin Anda lakukan ketika tombol ditekan
@@ -26,17 +29,16 @@ const Projects : React.FC = () => {
         },
       ];
       
-      const rows = [
-        { id: 1, firstName: 'John', lastName: 'Doe', age: 30 },
-        { id: 2, firstName: 'Jane', lastName: 'Smith', age: 25 },
-        { id: 3, firstName: 'Bob', lastName: 'Johnson', age: 40 },
-      ];
+      const rows = [];
       for (let i = 1; i < 10; i++) {
         rows.push({
-            id : i+4,
-            firstName : "asd",
-            lastName : "Asd",
-            age : 23
+            id : i,
+            projectName : "Tamansari Lagoon",
+            documentTitle : "Tamansari Lagoon Image",
+            documentCategory : "Building",
+            department : "WIKA Realty",
+            type : "Realty",
+            industry : "Wika"
         })
       }
     return (
