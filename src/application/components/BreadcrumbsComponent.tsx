@@ -1,13 +1,18 @@
-import React from 'react'
+import {ReactNode} from 'react'
 import { Breadcrumbs,
          Link,
          Typography
 } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
 import GrainIcon from '@mui/icons-material/Grain';
 
-const BreadcrumbsComponent: React.FC = () => {
+interface BreadcrumbsProps {
+  icon: ReactNode;
+  title : string;
+}
+
+const BreadcrumbsComponent: React.FC<BreadcrumbsProps> = ({title, icon}) => {
+  console.log(title)
     return (  
         <>
         <Breadcrumbs aria-label="breadcrumb">
@@ -18,24 +23,16 @@ const BreadcrumbsComponent: React.FC = () => {
           href="/"
         >
           <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          MUI
-        </Link>
-        <Link
-          underline="hover"
-          sx={{ display: 'flex', alignItems: 'center' }}
-          color="inherit"
-          href="/material-ui/getting-started/installation/"
-        >
-          <WhatshotIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Core
+          Wika Data Center
         </Link>
         <Typography
           sx={{ display: 'flex', alignItems: 'center' }}
           color="text.primary"
         >
-          <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Breadcrumb
+          {icon}
+          {title}
         </Typography>
+
       </Breadcrumbs>
         </>
     );
