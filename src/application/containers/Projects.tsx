@@ -2,10 +2,11 @@ import React from 'react'
 import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import SearchProject from '../components/SearchProject'
-import {Container, Card, Button } from '@mui/material'
+import {Container, Card, Button, Grid } from '@mui/material'
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AddIcon from '@mui/icons-material/Add';
 
 const Projects : React.FC = () => {
   const theme = createTheme({
@@ -58,6 +59,14 @@ const Projects : React.FC = () => {
         <Breadcrumbs title='Projects' icon={<ApartmentIcon sx={{ mr: 0.5 }} fontSize="inherit"/>} />
         <Card sx={{height : 'auto'}}>
           <SearchProject />
+          <Grid container justifyContent="flex-end" >
+            <Grid item  sx={{margin : '1em'}}>
+              <Button variant="contained" color="success">
+              <AddIcon />
+                Register Proyek
+              </Button>
+            </Grid>
+          </Grid>
           <ThemeProvider theme={theme}>
               <DataGrid
               rows={rows}

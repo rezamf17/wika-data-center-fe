@@ -18,7 +18,6 @@ const BreadcrumbsComponent: React.FC<BreadcrumbsProps> = ({title, icon}) => {
           underline="hover"
           sx={{ display: 'flex', alignItems: 'center' }}
           color="inherit"
-          href="/"
         >
           <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
           Wika Data Center
