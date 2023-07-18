@@ -1,6 +1,7 @@
 import React from 'react'
 import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
+import SearchAccount from '../components/SearchAccount'
 import {Container, Card, Button, Grid} from '@mui/material'
 import PeopleIcon from '@mui/icons-material/People';
 import AddIcon from '@mui/icons-material/Add';
@@ -68,6 +69,7 @@ const Accounts : React.FC = () => {
             <h1>Accounts</h1>
             <Breadcrumbs title='Accounts' icon={<PeopleIcon sx={{ mr: 0.5 }} fontSize="inherit"/>} />
         <Card sx={{height : 'auto'}}>
+            <SearchAccount />
           <Grid container justifyContent="flex-end" >
             <Grid item  sx={{margin : '1em'}}>
               <Button variant="contained" color="success">
