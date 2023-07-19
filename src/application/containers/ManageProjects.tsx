@@ -3,6 +3,7 @@ import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import SearchProject from '../components/SearchProject'
 import {Container, Card, Button, Grid} from '@mui/material'
+import SearchProjectEntity from '../../domain/entities/SearchProject'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
@@ -62,6 +63,10 @@ const ManageProjects : React.FC = () => {
                 industry : "Wika"
             })
           }
+          const handleSearchData = (data: SearchProjectEntity) => {
+            console.log(data)
+            // fetchNews()
+          }
     return (
         <>
         <Navigation />
@@ -69,7 +74,7 @@ const ManageProjects : React.FC = () => {
             <h1>Manage Projects</h1>
             <Breadcrumbs title='Manage Projects' icon={<DomainAddIcon sx={{ mr: 0.5 }} fontSize="inherit"/>} />
         <Card sx={{height : 'auto'}}>
-          <SearchProject />
+          <SearchProject search={handleSearchData} />
           <Grid container justifyContent="flex-end" >
             <Grid item  sx={{margin : '1em'}}>
               <Button variant="contained" color="success">

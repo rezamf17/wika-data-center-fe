@@ -2,6 +2,7 @@ import React from 'react'
 import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import SearchProject from '../components/SearchProject'
+import SearchProjectEntity from '../../domain/entities/SearchProject'
 import {Container, Card, Button, Grid } from '@mui/material'
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
@@ -51,6 +52,11 @@ const Projects : React.FC = () => {
             industry : "Wika"
         })
       }
+
+      const handleSearchData = (data: SearchProjectEntity) => {
+        console.log(data)
+        // fetchNews()
+      }
     return (
         <>
         <Navigation />
@@ -58,7 +64,7 @@ const Projects : React.FC = () => {
             <h1>Projects</h1>
         <Breadcrumbs title='Projects' icon={<ApartmentIcon sx={{ mr: 0.5 }} fontSize="inherit"/>} />
         <Card sx={{height : 'auto'}}>
-          <SearchProject />
+          <SearchProject search={handleSearchData} />
           <Grid container justifyContent="flex-end" >
             <Grid item  sx={{margin : '1em'}}>
               <Button variant="contained" color="success">
