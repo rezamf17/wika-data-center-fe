@@ -1,8 +1,16 @@
 import React, {useState} from "react";
 import {FormControl, CardHeader, Grid, TextField, Select, MenuItem, InputLabel, SelectChangeEvent, Button} from "@mui/material"
-
-const SearchAccount: React.FC = () => {
-    const [type, setType] = useState('')
+import SearchAccountEntity from '../../domain/entities/SearchAccount'
+interface SearchData {
+  search : (data : SearchAccountEntity) => void
+}
+const SearchAccount: React.FC<SearchData> = ({search}) => {
+    const [nip, setNip] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [nomorHP, setNomorHP] = useState('')
+    const [role, setRole] = useState('')
+    const [status, setStatus] = useState('')
     const gridKeyStyle = {
         textAlign : 'left',
         marginLeft : '1em'
@@ -11,9 +19,25 @@ const SearchAccount: React.FC = () => {
         marginBottom : '1em'
       }
       
-    const handleChange = (event: SelectChangeEvent) => {
-        setType(event.target.value);
+    const handleChangeRole = (event: SelectChangeEvent) => {
+        setRole(event.target.value);
     };
+
+    const handleChangeStatus = (event: SelectChangeEvent) => {
+        setStatus(event.target.value);
+    };
+
+    const searchData = () => {
+      const data:SearchAccountEntity = {
+        nip: nip,
+        name: name,
+        email: email,
+        nomorHP: nomorHP,
+        status: status,
+        role: role,
+    }
+      search(data)
+    }
     return (
         <>
         <CardHeader title='Filter' />
@@ -22,7 +46,7 @@ const SearchAccount: React.FC = () => {
               NIP
             </Grid>
             <Grid item xs={7}>
-              <TextField id="projectName" type="text" size='small' placeholder='NIP'/>
+              <TextField id="nip" value={nip} onInput={ (e:any) => setNip(e.target?.value)} type="text" size='small' placeholder='NIP'/>
             </Grid>
           </Grid>
           <Grid container sx={gridValueStyle} spacing={2}>
@@ -30,7 +54,7 @@ const SearchAccount: React.FC = () => {
               Name
             </Grid>
             <Grid item xs={7}>
-              <TextField id="projectName" type="text" size='small' placeholder='Name'/>
+              <TextField id="name" value={name} onInput={ (e:any) => setName(e.target?.value)} type="text" size='small' placeholder='Name'/>
             </Grid>
           </Grid>
           <Grid container sx={gridValueStyle} spacing={2}>
@@ -38,7 +62,7 @@ const SearchAccount: React.FC = () => {
               Email
             </Grid>
             <Grid item xs={7}>
-              <TextField id="projectName" type="text" size='small' placeholder='Email'/>
+              <TextField id="email" value={email} onInput={ (e:any) => setEmail(e.target?.value)} type="text" size='small' placeholder='Email'/>
             </Grid>
           </Grid>
           <Grid container sx={gridValueStyle} spacing={2}>
@@ -46,7 +70,7 @@ const SearchAccount: React.FC = () => {
               Nomor HP
             </Grid>
             <Grid item xs={7}>
-              <TextField id="projectName" type="text" size='small' placeholder='Nomor HP'/>
+              <TextField id="nomorHP" value={nomorHP} onInput={ (e:any) => setNomorHP(e.target?.value)} type="text" size='small' placeholder='Nomor HP'/>
             </Grid>
           </Grid>
           <Grid container sx={gridValueStyle} spacing={2}>
@@ -59,8 +83,8 @@ const SearchAccount: React.FC = () => {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={type}
-                onChange={handleChange}
+                value={role}
+                onChange={handleChangeRole}
                 label="Type"
                 size='small'
               >
@@ -81,15 +105,13 @@ const SearchAccount: React.FC = () => {
                 <Select
                   labelId="demo-simple-select-autowidth-label"
                   id="demo-simple-select-autowidth"
-                  value={type}
-                  onChange={handleChange}
+                  value={status}
+                  onChange={handleChangeStatus}
                   label="Type"
                   size='small'
                 >
-                  <MenuItem value='Project'>Building</MenuItem>
-                  <MenuItem value='Bridge'>Bridge</MenuItem>
-                  <MenuItem value='Roads'>Roads</MenuItem>
-                  <MenuItem value='Airport'>Airport</MenuItem>
+                  <MenuItem value='A'>Active</MenuItem>
+                  <MenuItem value='I'>InActive</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -102,7 +124,7 @@ const SearchAccount: React.FC = () => {
               
             </Grid>
             <Grid item>
-              <Button variant="contained">Search</Button>
+              <Button variant="contained" onClick={() => searchData()}>Search</Button>
             </Grid>
           </Grid>
         </>

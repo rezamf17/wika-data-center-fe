@@ -9,6 +9,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SearchAccountEntity from '../../domain/entities/SearchAccount'
 
 const Accounts : React.FC = () => {
     const theme = createTheme({
@@ -62,6 +63,11 @@ const Accounts : React.FC = () => {
             status : "Active"
         })
       }
+
+      const handleSearchData = (data: SearchAccountEntity) => {
+        console.log(data)
+        // fetchNews()
+      }
     return (
         <>
         <Navigation />
@@ -69,7 +75,7 @@ const Accounts : React.FC = () => {
             <h1>Accounts</h1>
             <Breadcrumbs title='Accounts' icon={<PeopleIcon sx={{ mr: 0.5 }} fontSize="inherit"/>} />
         <Card sx={{height : 'auto'}}>
-            <SearchAccount />
+            <SearchAccount search={handleSearchData} />
           <Grid container justifyContent="flex-end" >
             <Grid item  sx={{margin : '1em'}}>
               <Button variant="contained" color="success">
