@@ -65,32 +65,32 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
                         <div className='container'>
                             <div className="item">Document Title</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 1</div>
+                            <div className="item">Image 2</div>
                             <div className="item-value"><TextField size='small'></TextField></div>
                         </div>
                         <div className='container'>
                             <div className="item">Document Category</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 1</div>
+                            <div className="item">Image 3</div>
                             <div className="item-value"><TextField size='small'></TextField></div>
                         </div>
                         <div className='container'>
                             <div className="item">Department</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 1</div>
-                            <div className="item-value"><TextField size='small'></TextField></div>
+                            <div className="item"></div>
+                            <div className="item-value"></div>
                         </div>
                         <div className='container'>
                             <div className="item">Type</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 1</div>
-                            <div className="item-value"><TextField size='small'></TextField></div>
+                            <div className="item"></div>
+                            <div className="item-value"></div>
                         </div>
                         <div className='container'>
                             <div className="item">Industry</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 1</div>
-                            <div className="item-value"><TextField size='small'></TextField></div>
+                            <div className="item"></div>
+                            <div className="item-value"></div>
                         </div>
                     </Box>
                     <Box sx={{ footerBox }}>
