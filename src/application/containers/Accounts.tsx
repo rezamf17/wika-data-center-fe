@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import SearchAccount from '../components/SearchAccount'
@@ -10,8 +10,27 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
+import UserService from '../../domain/usecase/usecaseUser'
+import UserEntity from '../../domain/entities/entityUser'
+
+interface EntityUser {
+  id: number;
+  nip: string;
+  nama_lengkap: string;
+  email: string;
+  role: string;
+  status: string;
+}
+
+interface ApiResponse {
+  code: number;
+  message: string;
+  data: EntityUser[];
+}
+
 
 const Accounts : React.FC = () => {
+  const [row, setRow] = useState<UserEntity[]>([])
     const theme = createTheme({
         typography: {
           fontFamily: 'system-ui', 
@@ -21,9 +40,8 @@ const Accounts : React.FC = () => {
       const columns: GridColDef[] = [
         { field: 'id', headerName: 'No', width: 50 },
         { field: 'nip', headerName: 'NIP', width: 200 },
-        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'nama_lengkap', headerName: 'Name', width: 200 },
         { field: 'email', headerName: 'Email', width: 150 },
-        { field: 'nomor_hp', headerName: 'Nomor HP', width: 150 },
         { field: 'role', headerName: 'Role', width: 100 },
         { field: 'status', headerName: 'Status', width: 100 },
         {
@@ -50,7 +68,19 @@ const Accounts : React.FC = () => {
           },
         },
       ];
-      
+      const fetchUser = async () => {
+        try {
+          const userService = new UserService();
+          const fetchedUser:UserEntity[] = await userService.getAllUser()
+          setRow(fetchedUser)
+          console.log('fect', fetchedUser)
+        } catch (error) {
+          console.log(error)
+        }
+      };
+      useEffect(() => {
+        fetchUser();
+      }, []);
       const rows = [];
       for (let i = 1; i < 10; i++) {
         rows.push({
@@ -86,7 +116,7 @@ const Accounts : React.FC = () => {
           </Grid>
           <ThemeProvider theme={theme}>
               <DataGrid
-              rows={rows}
+              rows={row}
               columns={columns}
             />
           </ThemeProvider>
