@@ -16,7 +16,7 @@ class UserService {
         email: result.email,
         role: result.role,
         nip: result.nip,
-        status: result.status,
+        status: result.status == 'A' ? 'Active' : 'InActive',
     }));
    return users
   }

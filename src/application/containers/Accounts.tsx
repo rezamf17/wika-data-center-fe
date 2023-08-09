@@ -73,13 +73,14 @@ const Accounts : React.FC = () => {
           const userService = new UserService();
           const fetchedUser:UserEntity[] = await userService.getAllUser()
           setRow(fetchedUser)
-          console.log('fect', fetchedUser)
         } catch (error) {
           console.log(error)
         }
       };
+
       useEffect(() => {
         fetchUser();
+        console.log('twice')
       }, []);
       const rows = [];
       for (let i = 1; i < 10; i++) {
