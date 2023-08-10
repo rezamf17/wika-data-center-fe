@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
 import UserService from '../../domain/usecase/usecaseUser'
 import UserEntity from '../../domain/entities/entityUser'
+import ModalUser from '../components/ModalUser'
 
 interface UserEntities {
   id : number;
@@ -24,6 +25,9 @@ interface UserEntities {
 
 const Accounts: React.FC = () => {
   const [row, setRow] = useState<UserEntities[]>([])
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
   const theme = createTheme({
     typography: {
       fontFamily: 'system-ui',
@@ -101,7 +105,7 @@ const Accounts: React.FC = () => {
           <SearchAccount search={handleSearchData} />
           <Grid container justifyContent="flex-end" >
             <Grid item sx={{ margin: '1em' }}>
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="success" onClick={handleOpen}>
                 <AddIcon />
                 Add User
               </Button>
@@ -114,6 +118,7 @@ const Accounts: React.FC = () => {
             />
           </ThemeProvider>
         </Card>
+        <ModalUser open={open} handleClose={handleClose} />
       </Container>
     </>
   )
