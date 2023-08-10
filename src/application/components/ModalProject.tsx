@@ -56,37 +56,37 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
                         </Typography>
                     </Box>
                     <Box sx={bodyBox}>
-                        <div className='container'>
+                        <div className='container-modal'>
                             <div className="item">Project Name</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
                             <div className="item">Image 1</div>
                             <div className="item-value"><TextField type='file' size='small'></TextField></div>
                         </div>
-                        <div className='container'>
+                        <div className='container-modal'>
                             <div className="item">Document Title</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
                             <div className="item">Image 2</div>
                             <div className="item-value"><TextField size='small'></TextField></div>
                         </div>
-                        <div className='container'>
+                        <div className='container-modal'>
                             <div className="item">Document Category</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
                             <div className="item">Image 3</div>
                             <div className="item-value"><TextField size='small'></TextField></div>
                         </div>
-                        <div className='container'>
+                        <div className='container-modal'>
                             <div className="item">Department</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
                             <div className="item"></div>
                             <div className="item-value"></div>
                         </div>
-                        <div className='container'>
+                        <div className='container-modal'>
                             <div className="item">Type</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
                             <div className="item"></div>
                             <div className="item-value"></div>
                         </div>
-                        <div className='container'>
+                        <div className='container-modal'>
                             <div className="item">Industry</div>
                             <div className="item-value"><TextField size='small' fullWidth></TextField></div>
                             <div className="item"></div>
