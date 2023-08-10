@@ -12,21 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
 import UserService from '../../domain/usecase/usecaseUser'
 import UserEntity from '../../domain/entities/entityUser'
+import ManageProjects from './ManageProjects'
 
-interface EntityUser {
-  id: number;
-  nip: string;
-  nama_lengkap: string;
-  email: string;
-  role: string;
-  status: string;
-}
-
-interface ApiResponse {
-  code: number;
-  message: string;
-  data: EntityUser[];
-}
 
 
 const Accounts : React.FC = () => {
@@ -71,8 +58,9 @@ const Accounts : React.FC = () => {
       const fetchUser = async () => {
         try {
           const userService = new UserService();
-          const fetchedUser:UserEntity[] = await userService.getAllUser()
-          setRow(fetchedUser)
+          const fetchedUser = await userService.getAllUser()
+          console.log(fetchedUser)
+          setRow(fetchedUser.data)
         } catch (error) {
           console.log(error)
         }

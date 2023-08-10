@@ -1,17 +1,17 @@
-interface UserEntity {
-    code : number;
+interface UserEntities {
+    id : number;
     nip : string;
-    name : string;
+    nama_lengkap : string;
     email : string;
     role : string;
     status : string
   }
 
-  interface ApiResponse {
+  interface Response {
     code: number;
     message: string;
-    data: UserEntity[];
+    data: any[];
   }
   
   
-  export default ApiResponse;
+  export default Response;
