@@ -11,6 +11,16 @@ class UserAPI {
       throw error;
     }
   }
+
+  async insertUser () {
+    try {
+      const response = await axios.post(`http://localhost:3001/user`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      throw error;
+    }
+  }
 }
 
 export default UserAPI;

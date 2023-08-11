@@ -10,15 +10,12 @@ class UserService {
 
   async getAllUser(): Promise<UserEntity> {
     const user = await this.userAPI.getUser();
-    // const users =  user.data.map((result:any, index:number) => ({
-    //     id: index+1,
-    //     nama_lengkap: result.nama_lengkap,
-    //     email: result.email,
-    //     role: result.role,
-    //     nip: result.nip,
-    //     status: result.status == 'A' ? 'Active' : 'InActive',
-    // }));
-   return user
+    return user
+  }
+
+  async insertDataUser(): Promise<UserEntity> {
+    const user = await this.userAPI.insertUser();
+    return user
   }
 }
 
