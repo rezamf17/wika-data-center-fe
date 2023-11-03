@@ -22,7 +22,7 @@ const Navigation: React.FC = () => {
         <AppBar position='static' sx={{ backgroundColor: color }}>
             <Toolbar sx={{ justifyContent: 'center' }}>
             <Grid container spacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={1}>
                     <img src={logoWika} alt="logo wika" className='image-size'/>
                 </Grid>
                 <Grid item xs={2}>
@@ -36,6 +36,9 @@ const Navigation: React.FC = () => {
                 </Grid>
                 <Grid item xs={2}>
                     <Button variant="text" sx={label} component={Link} to='/manage-projects'>Manage Projects</Button> 
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="text" sx={label} component={Link} to='/manage-projects'>Logout</Button> 
                 </Grid>
             </Grid>
             </Toolbar>
