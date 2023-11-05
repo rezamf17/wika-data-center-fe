@@ -69,12 +69,12 @@ const Navigation: React.FC = () => {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Yakin Ingin Logout ?
                 </Typography>
-                <Grid container spacing={1} sx={{mt : '1em'}}>
-                    <Grid item xs={6}>
-                        <Button onClick={logoutModalClose}>Tidak</Button>
+                <Grid container spacing={4} sx={{mt : '1em'}}>
+                    <Grid item xs={4}>
+                        <Button onClick={logoutModalClose} sx={{float : 'left'}}>Tidak</Button>
                     </Grid>
-                    <Grid item xs={5}>
-                        <Button onClick={logoutModalClose}  component={Link} to='/' >Ya</Button>
+                    <Grid item xs={7}>
+                        <Button onClick={logoutModalClose} sx={{float : 'right'}} component={Link} to='/' >Ya</Button>
                     </Grid>
                 </Grid>
                 </Box>
