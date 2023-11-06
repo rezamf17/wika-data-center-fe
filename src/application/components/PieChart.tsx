@@ -11,7 +11,7 @@ const PieChart: React.FC = () => {
         datasets: [
           {
             data: [30, 40, 60],
-            backgroundColor: ['red', 'blue', 'green'],
+            backgroundColor: ['#fa4141', '#4141fa', '#30fc58'],
           },
         ],
       };
@@ -31,7 +31,6 @@ const PieChart: React.FC = () => {
     }
       return (
         <div>
-          <h2>Pie Chart Example</h2>
           <div className='chartContainer'>
             <Pie data={data} options={options} />
             {/* <Line data={data} options={options} /> */}
