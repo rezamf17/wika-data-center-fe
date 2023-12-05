@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pie, Line } from 'react-chartjs-2';
+import { Doughnut, Line } from 'react-chartjs-2';
 import Chart from "chart.js/auto";
 import '../../assets/css/chart.css'
 import {CategoryScale} from 'chart.js'; 
@@ -7,11 +7,11 @@ Chart.register(CategoryScale);
 
 const PieChart: React.FC = () => {
     const data = {
-        labels: ['Admin', 'Karyawan', 'PJ Proyek', 'Member Proyek'],
+        labels: ['On-Going', 'Hold', 'Finish'],
         datasets: [
           {
-            data: [30, 40, 60, 70],
-            backgroundColor: ['#965353', '#5d5f9e', '#539655', '#539684'],
+            data: [30, 40, 60],
+            backgroundColor: ['#965353', '#5d5f9e', '#539655'],
           },
         ],
       };
@@ -25,15 +25,15 @@ const PieChart: React.FC = () => {
         width: 200, // Lebar dalam piksel
         height: 200, // Tinggi dalam piksel
       };
-      const chartContainer = {
-          width : '350px',
-          height : '350px',
-          marginLeft : '4em'
-      }
+    const chartContainer = {
+        width : '350px',
+        height : '350px',
+        marginLeft : '4em'
+    }
       return (
         <div>
           <div style={chartContainer}>
-            <Pie data={data} options={options} />
+            <Doughnut data={data} options={options} />
             {/* <Line data={data} options={options} /> */}
           </div>
         </div>
