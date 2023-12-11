@@ -9,6 +9,7 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
+import {motion} from 'framer-motion'
 
 const Projects: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -63,7 +64,12 @@ const Projects: React.FC = () => {
     // fetchNews()
   }
   return (
-    <>
+    <motion.div
+    initial={{ opacity: 0, y: -50 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 50 }}
+    transition={{ type: "spring", stiffness: 100, duration: 0.2 }}
+    >
       <Navigation />
       <Container fixed>
         <h1>Projects</h1>
@@ -87,7 +93,7 @@ const Projects: React.FC = () => {
         </Card>
         <ModalProject open={open} handleClose={handleClose} />
       </Container>
-    </>
+    </motion.div>
   )
 }
 

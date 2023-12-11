@@ -13,6 +13,7 @@ import SearchAccountEntity from '../../domain/entities/SearchAccount'
 import UserService from '../../domain/usecase/usecaseUser'
 import UserEntity from '../../domain/entities/entityUser'
 import ModalUser from '../components/ModalUser'
+import { motion } from 'framer-motion'
 
 interface UserEntities {
   id: number;
@@ -101,7 +102,12 @@ const Accounts: React.FC = () => {
     // fetchNews()
   }
   return (
-    <>
+    <motion.div
+    initial={{ opacity: 0, y: -50 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 50 }}
+    transition={{ type: "spring", stiffness: 100, duration: 0.2 }}
+    >
       <Navigation />
       <Container fixed>
         <h1>Accounts</h1>
@@ -131,7 +137,7 @@ const Accounts: React.FC = () => {
         </Card>
         <ModalUser open={open} handleClose={handleClose} />
       </Container>
-    </>
+    </motion.div>
   )
 }
 

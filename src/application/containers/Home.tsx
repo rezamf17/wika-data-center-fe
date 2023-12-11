@@ -7,11 +7,23 @@ import gambar2 from '../../assets/img/Adityo-Kusumo-large-removebg-preview.png'
 import gambar3 from '../../assets/img/agung-budi-Waskito-large-removebg-preview.png'
 import gambar4 from '../../assets/img/Hananto-aji-large-removebg-preview.png'
 import gambar5 from '../../assets/img/APR_3557-1-large-removebg-preview.png'
+import {motion} from 'framer-motion'
 
 
 const Home: React.FC = () => {
+  const animationVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: 50 },
+  };
     return(
-        <>
+        <motion.div
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        variants={animationVariants}
+        transition={{ ease: "easeInOut", duration: 0.2 }}
+        >
             <div className="background">
                 <div className="container">
                 <LoginBox/>
@@ -81,7 +93,7 @@ const Home: React.FC = () => {
                     </ImageList>
                 </div>
             </div>
-        </>
+        </motion.div>
     )
 }
 
