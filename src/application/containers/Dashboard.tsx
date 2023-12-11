@@ -23,10 +23,10 @@ const Dashboard: React.FC = () => {
                 <Card sx={{ height: 'auto' }}>
                     <Grid container justifyContent="center" style={{ height: '90vh' }}>
                         <Grid item xs={6}>
-                            <PieChart />
+                            <PieChart title='User Wika Data Center' />
                         </Grid>
                         <Grid item xs={6}>
-                            <DonutChart />
+                            <DonutChart title='Project Status' />
                         </Grid>
                     </Grid>
                 </Card>

@@ -5,7 +5,11 @@ import '../../assets/css/chart.css'
 import {CategoryScale} from 'chart.js'; 
 Chart.register(CategoryScale);
 
-const PieChart: React.FC = () => {
+interface DonutChartProps {
+  title : string;
+}
+
+const PieChart: React.FC<DonutChartProps> = ({title}) => {
     const data = {
         labels: ['On-Going', 'Hold', 'Finish'],
         datasets: [
@@ -33,6 +37,7 @@ const PieChart: React.FC = () => {
       return (
         <div>
           <div style={chartContainer}>
+            <label><b>{title}</b></label>
             <Doughnut data={data} options={options} />
             {/* <Line data={data} options={options} /> */}
           </div>

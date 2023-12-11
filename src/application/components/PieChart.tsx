@@ -5,7 +5,11 @@ import '../../assets/css/chart.css'
 import {CategoryScale} from 'chart.js'; 
 Chart.register(CategoryScale);
 
-const PieChart: React.FC = () => {
+interface PieChartProps {
+  title : string;
+}
+
+const PieChart: React.FC<PieChartProps> = ({title}) => {
     const data = {
         labels: ['Admin', 'Karyawan', 'PJ Proyek', 'Member Proyek'],
         datasets: [
@@ -33,6 +37,7 @@ const PieChart: React.FC = () => {
       return (
         <div>
           <div style={chartContainer}>
+            <label><b>{title}</b></label>
             <Pie data={data} options={options} />
             {/* <Line data={data} options={options} /> */}
           </div>
