@@ -12,10 +12,16 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import PauseIcon from '@mui/icons-material/Pause';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { motion } from 'framer-motion';
 
 const Dashboard: React.FC = () => {
     return (
-        <>
+        <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ type: "spring", stiffness: 100, duration: 0.2 }}
+        >
             <Navigation />
             <Container>
                 <h1>Dashboard</h1>
@@ -31,7 +37,7 @@ const Dashboard: React.FC = () => {
                     </Grid>
                 </Card>
             </Container>
-        </>
+        </motion.div>
     )
 }
 

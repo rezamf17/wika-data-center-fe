@@ -36,7 +36,7 @@ const Navigation: React.FC = () => {
       };
     return (
         <>
-        <AppBar position='static' sx={{ backgroundColor: color }}>
+        <AppBar position='fixed' sx={{ backgroundColor: color }}>
             <Toolbar sx={{ justifyContent: 'center' }}>
             <Grid container spacing={5}>
                 <Grid item xs={1}>
