@@ -5,6 +5,7 @@ import Dashboard from '../containers/Dashboard'
 import Projects from '../containers/Projects'
 import Accounts from '../containers/Accounts'
 import ManageProjects from '../containers/ManageProjects'
+import MemberProyek from '../containers/MemberProyek'
 import { AnimatePresence } from 'framer-motion'
 
 const Routing:React.FC = () => {
@@ -17,6 +18,7 @@ const Routing:React.FC = () => {
                 <Route path='/projects' element={<Projects />} />
                 <Route path='/manage-projects' element={<ManageProjects />} />
                 <Route path='/accounts' element={<Accounts />} />
+                <Route path='/project-member' element={<MemberProyek />} />
             </Routes>
         </AnimatePresence>
     )
