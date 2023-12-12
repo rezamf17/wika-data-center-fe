@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   Container,
   Card,
   Grid,
-  Button
+  Button,
+  TextField
 } from '@mui/material'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import Navigation from '../components/Navigation'
@@ -15,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const MemberProyek: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
@@ -24,14 +26,21 @@ const MemberProyek: React.FC = () => {
     },
   });
 
+  const gridValueStyle = {
+    marginBottom : '1em'
+  }
+  const gridKeyStyle = {
+    textAlign : 'left',
+    marginLeft : '1em'
+  }
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'No', width: 50 },
-    { field: 'projectName', headerName: 'Project Name', width: 200 },
-    { field: 'documentTitle', headerName: 'Document Title', width: 200 },
-    { field: 'documentCategory', headerName: 'Document Category', width: 150 },
-    { field: 'department', headerName: 'Department', width: 150 },
-    { field: 'type', headerName: 'Type', width: 100 },
-    { field: 'industry', headerName: 'Industry', width: 100 },
+    { field: 'nip', headerName: 'NIP', width: 200 },
+    { field: 'role', headerName: 'Role', width: 150 },
+    { field: 'namaMember', headerName: 'Nama Member', width: 200 },
+    { field: 'namaProyek', headerName: 'Nama Proyek', width: 200 },
+    { field: 'pjProyek', headerName: 'PJ Proyek', width: 100 },
     {
       field: 'action',
       headerName: 'Action',
@@ -52,23 +61,30 @@ const MemberProyek: React.FC = () => {
   for (let i = 1; i < 10; i++) {
     rows.push({
       id: i,
-      projectName: "Tamansari Lagoon",
-      documentTitle: "Tamansari Lagoon Image",
-      documentCategory: "Building",
-      department: "WIKA Realty",
-      type: "Realty",
-      industry: "Wika"
+      nip: "17111117",
+      role: "PJ Proyek",
+      namaMember: "Reza",
+      namaProyek: "WIKA Realty",
+      pjProyek: "Tatang",
     })
   }
   return (
     <motion.div>
       <Navigation />
       <Container fixed>
-        <h1>Projects</h1>
+        <h1>Project Member</h1>
         <Breadcrumbs title='Projects' icon={<RememberMeIcon sx={{ mr: 0.5 }} fontSize="inherit" />} />
         <Card sx={{ height: 'auto' }}>
+          <Grid container sx={gridValueStyle} spacing={2}>
+            <Grid item sx={{ margin: '3em', marginTop : '3.5em' }}>
+              Search
+            </Grid>
+            <Grid item sx={{ margin: '3em' }}>
+              <TextField id="search" value={search} onInput={ (e:any) => setSearch(e.target?.value)} type="text" size='small' placeholder='Search'/>
+            </Grid>
+          </Grid>
           <Grid container justifyContent="flex-end" >
-            <Grid item sx={{ margin: '1em' }}>
+            <Grid item sx={{ margin: '3em' }}>
               <Button variant="contained" color="success" onClick={handleOpen}>
                 <AddIcon />
                 Register Proyek
