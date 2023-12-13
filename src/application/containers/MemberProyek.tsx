@@ -13,6 +13,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import RememberMeIcon from '@mui/icons-material/RememberMe';
 import AddIcon from '@mui/icons-material/Add';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ModalMemberProyek from '../components/ModalMemberProyek'
 
 const MemberProyek: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -87,7 +88,7 @@ const MemberProyek: React.FC = () => {
             <Grid item sx={{ margin: '3em' }}>
               <Button variant="contained" color="success" onClick={handleOpen}>
                 <AddIcon />
-                Register Proyek
+                Tambah Member Proyek
               </Button>
             </Grid>
           </Grid>
@@ -99,6 +100,7 @@ const MemberProyek: React.FC = () => {
           </ThemeProvider>
         </Card>
       </Container>
+      <ModalMemberProyek open={open} handleClose={handleClose} />
     </motion.div>
   )
 }
