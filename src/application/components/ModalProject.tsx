@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, Button, Modal, Box, Typography, TextField } from '@mui/material'
 import '../../assets/css/Modal.css'
+import UploadImage from './UploadImage';
 
 interface ModalProps {
     open: boolean;
@@ -56,42 +57,40 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
                         </Typography>
                     </Box>
                     <Box sx={bodyBox}>
-                        <div className='container-modal'>
-                            <div className="item">Project Name</div>
-                            <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 1</div>
-                            <div className="item-value"><TextField type='file' size='small'></TextField></div>
-                        </div>
-                        <div className='container-modal'>
-                            <div className="item">Document Title</div>
-                            <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 2</div>
-                            <div className="item-value"><TextField size='small'></TextField></div>
-                        </div>
-                        <div className='container-modal'>
-                            <div className="item">Document Category</div>
-                            <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item">Image 3</div>
-                            <div className="item-value"><TextField size='small'></TextField></div>
-                        </div>
-                        <div className='container-modal'>
-                            <div className="item">Department</div>
-                            <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item"></div>
-                            <div className="item-value"></div>
-                        </div>
-                        <div className='container-modal'>
-                            <div className="item">Type</div>
-                            <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item"></div>
-                            <div className="item-value"></div>
-                        </div>
-                        <div className='container-modal'>
-                            <div className="item">Industry</div>
-                            <div className="item-value"><TextField size='small' fullWidth></TextField></div>
-                            <div className="item"></div>
-                            <div className="item-value"></div>
-                        </div>
+                        <Grid container sx={{width : '60vw'}}>
+                            <Grid item xs={7}>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Nama Proyek</Grid>
+                                    <Grid item xs={7} sx={{padding : '1em'}}><TextField size='small' fullWidth /></Grid>
+                                </Grid>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Status Proyek</Grid>
+                                    <Grid item xs={7} sx={{padding : '1em'}}><TextField size='small' fullWidth /></Grid>
+                                </Grid>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Deparment</Grid>
+                                    <Grid item xs={7} sx={{padding : '1em'}}><TextField size='small' fullWidth /></Grid>
+                                </Grid>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Tempat Proyek</Grid>
+                                    <Grid item xs={7} sx={{padding : '1em'}}><TextField size='small' fullWidth /></Grid>
+                                </Grid>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Tanggal Berakhir Proyek</Grid>
+                                    <Grid item xs={7} sx={{padding : '1em'}}><TextField size='small' fullWidth /></Grid>
+                                </Grid>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Deskripsi Proyek</Grid>
+                                    <Grid item xs={7} sx={{padding : '1em'}}><TextField size='small' /></Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Grid container spacing={5}>
+                                    <Grid item xs={5}>Nama Proyek</Grid>
+                                    <Grid item xs={5}><TextField size='small' /></Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Box>
                     <Box sx={{ footerBox }}>
                         <Grid container spacing={2}>
@@ -99,12 +98,12 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
 
                             </Grid>
                             <Grid item xs={2}>
-                                <Button variant="outlined" color="primary" sx={{marginTop : '2em'}} onClick={handleClose}>
+                                <Button variant="outlined" color="primary" sx={{ marginTop: '2em' }} onClick={handleClose}>
                                     Close
                                 </Button>
                             </Grid>
                             <Grid item xs={2}>
-                                <Button variant="contained" color="primary" sx={{marginTop : '2em'}}>
+                                <Button variant="contained" color="primary" sx={{ marginTop: '2em' }}>
                                     Save
                                 </Button>
                             </Grid>
