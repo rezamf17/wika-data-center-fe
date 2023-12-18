@@ -3,6 +3,8 @@
     box-shadow: 0 0 5px #ffdfff;
     border-radius: 5px;
     overflow: hidden;
+    height: 100%;
+    width: 30vw;
 }
 
 .card .top {
@@ -49,6 +51,7 @@
     margin-left: 5px;
     cursor: pointer;
     transition: 0.4s;
+    /* width: 100%; */
 }
 
 .card .select:hover {
