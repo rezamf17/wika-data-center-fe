@@ -35,6 +35,26 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
     setDepartemen(event.target.value);
   };
 
+  const handleOnChangeDesc = (event: any) => {
+    setValue(event)
+  }
+
+  function submit(){
+    console.log('value',value)
+  }
+
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      [{'align': []}],
+    ],
+  };
+
+  const formats = [
+    'header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'align',
+  ];
 
   const style = {
     position: 'absolute',
@@ -141,14 +161,14 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
                   <Grid item xs={5}>Tanggal Berakhir Proyek</Grid>
                   <Grid item xs={7} sx={{ padding: '1em' }}><TextField size='small' fullWidth /></Grid>
                 </Grid>
-                <Grid container spacing={5}>
+                {/* <Grid container spacing={5}>
                   <Grid item xs={5}>Deskripsi Proyek</Grid>
                   <Grid item xs={7} sx={{ padding: '1em', width: '50vw' }}>
                     <div style={{ border: '1px solid #ccc', padding: '8px' }}>
                       <ReactQuill theme="snow" value={value} onChange={setValue} style={{ height: '200px' }} />
                     </div>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </Box>
             </Grid>
             <Grid item>
@@ -161,7 +181,14 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
                 </Grid>
               </Box>
             </Grid>
-
+          </Grid>
+          <Grid container>
+                <Grid item xs={2.8}>Deskripsi Proyek</Grid>
+                <Grid item sx={{ padding: '1em', width: '60vw' }}>
+                    <div style={{ border: '1px solid #ccc', padding: '8px' }}>
+                      <ReactQuill theme="snow" value={value} onChange={handleOnChangeDesc} style={{ height: '200px' }} modules={modules} formats={formats} />
+                    </div>
+                  </Grid>
           </Grid>
           <Box sx={{ footerBox }}>
             <Grid container spacing={2}>
@@ -174,7 +201,7 @@ const ModalProject: React.FC<ModalProps> = ({ open, handleClose }) => {
                 </Button>
               </Grid>
               <Grid item xs={2}>
-                <Button variant="contained" color="primary" sx={{ marginTop: '2em' }}>
+                <Button variant="contained" color="primary" sx={{ marginTop: '2em' }} onClick={submit}>
                   Save
                 </Button>
               </Grid>

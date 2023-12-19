@@ -130,9 +130,9 @@ const UploadImage: React.FC = () => {
             </div>
           ))}
         </div>
-        <button type="button" onClick={upload}>
+        {/* <button type="button" onClick={upload}>
           Upload
-        </button>
+        </button> */}
       </div>
     </>
   )
