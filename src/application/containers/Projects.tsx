@@ -24,16 +24,17 @@ const Projects: React.FC = () => {
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'No', width: 50 },
-    { field: 'projectName', headerName: 'Project Name', width: 200 },
-    { field: 'documentTitle', headerName: 'Document Title', width: 200 },
-    { field: 'documentCategory', headerName: 'Document Category', width: 150 },
-    { field: 'department', headerName: 'Department', width: 150 },
-    { field: 'type', headerName: 'Type', width: 100 },
-    { field: 'industry', headerName: 'Industry', width: 100 },
+    { field: 'projectName', headerName: 'Nama Proyek', width: 200 },
+    { field: 'status', headerName: 'Status Project', width: 150 },
+    { field: 'departemen', headerName: 'Departemen', width: 150 },
+    { field: 'location', headerName: 'Tempat Proyek', width: 150 },
+    { field: 'startProject', headerName: 'Tanggal Berakhir Proyek', width: 100 },
+    { field: 'endProject', headerName: 'Tanggal Berakhir Proyek', width: 100 },
+    { field: 'description', headerName: 'Deskripsi', width: 100 },
     {
       field: 'action',
       headerName: 'Action',
-      width: 200,
+      width: 100,
       headerAlign: 'center',
       renderCell: (params: GridRenderCellParams) => {
         const onClickHandler = () => {
@@ -51,11 +52,12 @@ const Projects: React.FC = () => {
     rows.push({
       id: i,
       projectName: "Tamansari Lagoon",
-      documentTitle: "Tamansari Lagoon Image",
-      documentCategory: "Building",
-      department: "WIKA Realty",
-      type: "Realty",
-      industry: "Wika"
+      status: "Hold",
+      departemen: "Building",
+      location: "Jakarta Selatan",
+      endProject: "10/12/2024",
+      startProject: "10/12/2020",
+      description: "Wika Building Corp"
     })
   }
 

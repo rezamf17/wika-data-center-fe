@@ -5,7 +5,8 @@ import {
   Card,
   Grid,
   Button,
-  TextField
+  TextField,
+  CardHeader
 } from '@mui/material'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import Navigation from '../components/Navigation'
@@ -27,12 +28,12 @@ const MemberProyek: React.FC = () => {
     },
   });
 
-  const gridValueStyle = {
-    marginBottom : '1em'
-  }
   const gridKeyStyle = {
     textAlign : 'left',
     marginLeft : '1em'
+  }
+  const gridValueStyle = {
+    marginBottom : '1em'
   }
 
   const columns: GridColDef[] = [
@@ -76,14 +77,15 @@ const MemberProyek: React.FC = () => {
         <h1>Project Member</h1>
         <Breadcrumbs title='Projects' icon={<RememberMeIcon sx={{ mr: 0.5 }} fontSize="inherit" />} />
         <Card sx={{ height: 'auto' }}>
-          <Grid container sx={gridValueStyle} spacing={2}>
-            <Grid item sx={{ margin: '3em', marginTop : '3.5em' }}>
-              Search
+          <CardHeader title='Filter' />
+            <Grid container sx={gridValueStyle} spacing={2}>
+              <Grid item sx={gridKeyStyle} xs={3}>
+                Search
+              </Grid>
+              <Grid item xs={7}>
+                <TextField id="search" value={search} onInput={ (e:any) => setSearch(e.target?.value)} type="text" size='small' placeholder='Search'/>
+              </Grid>
             </Grid>
-            <Grid item sx={{ margin: '3em' }}>
-              <TextField id="search" value={search} onInput={ (e:any) => setSearch(e.target?.value)} type="text" size='small' placeholder='Search'/>
-            </Grid>
-          </Grid>
           <Grid container justifyContent="flex-end" >
             <Grid item sx={{ margin: '3em' }}>
               <Button variant="contained" color="success" onClick={handleOpen}>
