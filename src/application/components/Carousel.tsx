@@ -3,6 +3,9 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import Slider, { Settings } from 'react-slick'
+import {IconButton, Stack } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const Carousel: React.FC = () => {
 
@@ -12,7 +15,7 @@ const Carousel: React.FC = () => {
   const sliderSettings : Settings = {
     // removes default buttons
     arrows: false,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
   }
@@ -25,90 +28,33 @@ const Carousel: React.FC = () => {
   };
 
   const hotelCards = [
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1559508551-44bff1de756b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
-      title: 'Studio Room',
-      description: 'Lorem ipsum dolor sit amet, consectur dolori',
-      pricingText: 'USD 50/Day',
-      features: ['Free Wifi', 'Free breakfast'],
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1616940844649-535215ae4eb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-      title: 'Deluxe Room',
-      description: 'Lorem ipsum dolor sit amet, consectur dolori',
-      pricingText: 'USD 80/Day',
-      features: ['Free Wifi', 'Free breakfast'],
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1599619351208-3e6c839d6828?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80',
-      title: 'King Deluxe Room',
-      description: 'Lorem ipsum dolor sit amet, consectur dolori',
-      pricingText: 'USD 150/Day',
-      features: ['Free Wifi', 'Free breakfast', 'Discounted Meals'],
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1461092746677-7b4afb1178f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-      title: 'Royal Suite',
-      description: 'Lorem ipsum dolor sit amet, consectur dolori',
-      pricingText: 'USD 299/Day',
-      features: [
-        'Free Wifi',
-        'Free breakfast',
-        'Discounted Meals',
-        "MacBook for work use (hotel's property)",
-      ],
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1461092746677-7b4afb1178f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-      title: 'Royal Suite',
-      description: 'Lorem ipsum dolor sit amet, consectur dolori',
-      pricingText: 'USD 299/Day',
-      features: [
-        'Free Wifi',
-        'Free breakfast',
-        'Discounted Meals',
-        "MacBook for work use (hotel's property)",
-      ],
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1461092746677-7b4afb1178f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-      title: 'Royal Suite',
-      description: 'Lorem ipsum dolor sit amet, consectur dolori',
-      pricingText: 'USD 299/Day',
-      features: [
-        'Free Wifi',
-        'Free breakfast',
-        'Discounted Meals',
-        "MacBook for work use (hotel's property)",
-      ],
-    },
+    'https://images.unsplash.com/photo-1704026437902-699fa6a8c98d?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1682686580922-2e594f8bdaa7?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1704024213027-c3555991bc63?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1703948057135-8b7b87bac48a?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1703897059883-3b0e02522cdc?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://plus.unsplash.com/premium_photo-1683140941523-f1fbbabe54d5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   ]
   return (
     <div className='content'>
-      <button onClick={handlePrevClick}>
+      {/* <button onClick={handlePrevClick}>
         <FaChevronLeft />
       </button>
       <button onClick={handleNextClick}>
         <FaChevronRight />
-      </button>
+      </button> */}
+      <Stack direction="row" sx={{width : '2em'}} spacing={1}>
+        <IconButton aria-label="fingerprint" color="primary" onClick={handlePrevClick}>
+          <ChevronLeftIcon />
+        </IconButton>
+        <IconButton aria-label="fingerprint" color="primary" onClick={handleNextClick}>
+          <ChevronRightIcon />
+        </IconButton>
+      </Stack>
       <Slider ref={(slider) => sliderRef.current = slider} {...sliderSettings}>
         {hotelCards.map((card, index) => (
           <div key={index}>
-            <h2>{card.title}</h2>
-            <img alt={card.title} src={card.imageSrc} width="100" height="100" />
-            <p>{card.description}</p>
-            <ul>
-              {card.features.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-            <button className='btn'>Buy Now</button>
+            <img alt={card} src={card} style={{ width: '100%', height: '100%' }}  />
           </div>
         ))}
       </Slider>
