@@ -10,6 +10,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import {motion} from 'framer-motion'
+import { useNavigate } from 'react-router-dom';
 
 const Projects: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +23,7 @@ const Projects: React.FC = () => {
     },
   });
 
+  const navigate = useNavigate()
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'No', width: 50 },
     { field: 'projectName', headerName: 'Nama Proyek', width: 200 },
@@ -38,7 +40,7 @@ const Projects: React.FC = () => {
       headerAlign: 'center',
       renderCell: (params: GridRenderCellParams) => {
         const onClickHandler = () => {
-          // Aksi yang ingin Anda lakukan ketika tombol ditekan
+          navigate('/projects/detail')
           console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
         };
 
