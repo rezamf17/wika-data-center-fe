@@ -37,13 +37,7 @@ const Carousel: React.FC = () => {
   ]
   return (
     <div className='content'>
-      {/* <button onClick={handlePrevClick}>
-        <FaChevronLeft />
-      </button>
-      <button onClick={handleNextClick}>
-        <FaChevronRight />
-      </button> */}
-      <Stack direction="row" sx={{width : '2em'}} spacing={1}>
+      <Stack direction="row" sx={{width : '2em', marginLeft : 'auto', marginRight : '3em'}} spacing={1}>
         <IconButton aria-label="fingerprint" color="primary" onClick={handlePrevClick}>
           <ChevronLeftIcon />
         </IconButton>
@@ -54,7 +48,7 @@ const Carousel: React.FC = () => {
       <Slider ref={(slider) => sliderRef.current = slider} {...sliderSettings}>
         {hotelCards.map((card, index) => (
           <div key={index}>
-            <img alt={card} src={card} style={{ width: '100%', height: '100%' }}  />
+            <img alt={card} src={card} style={{ width: '50%', height: '50%', display: 'block', marginLeft : 'auto', marginRight : 'auto' }}  />
           </div>
         ))}
       </Slider>

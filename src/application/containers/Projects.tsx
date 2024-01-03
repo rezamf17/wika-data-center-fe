@@ -41,7 +41,7 @@ const Projects: React.FC = () => {
       renderCell: (params: GridRenderCellParams) => {
         const onClickHandler = () => {
           navigate('/projects/detail')
-          console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
+          // console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
         };
 
         return <Button onClick={onClickHandler}>Detail</Button>;
