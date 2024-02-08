@@ -3,7 +3,7 @@ interface UserEntities {
     nip : string;
     nama_lengkap : string;
     email : string;
-    role : string;
+    role_code : string;
     status : string
   }
 

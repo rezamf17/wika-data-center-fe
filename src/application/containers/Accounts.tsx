@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
 import UserService from '../../domain/usecase/usecaseUser'
 import UserEntity from '../../domain/entities/entityUser'
+import { RoleMapping } from '../../infra/Utilities'
 import ModalUser from '../components/ModalUser'
 import { motion } from 'framer-motion'
 
@@ -20,7 +21,7 @@ interface UserEntities {
   nip: string;
   nama_lengkap: string;
   email: string;
-  role: string;
+  role_code: string;
   status: string
 }
 
@@ -43,11 +44,11 @@ const Accounts: React.FC = () => {
       headerName: 'No',
       width: 50,
     },
-    { field: 'nip', headerName: 'NIP', width: 200 },
-    { field: 'nama_lengkap', headerName: 'Name', width: 200 },
-    { field: 'email', headerName: 'Email', width: 150 },
-    { field: 'role', headerName: 'Role', width: 100 },
-    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'nip', headerName: 'NIP', width: 100 },
+    { field: 'nama_lengkap', headerName: 'Name', width: 250 },
+    { field: 'email', headerName: 'Email', width: 250 },
+    { field: 'role_code', headerName: 'Role', width: 150 },
+    { field: 'status', headerName: 'Status', width: 120 },
     {
       field: 'action',
       headerName: 'Action',
@@ -80,7 +81,7 @@ const Accounts: React.FC = () => {
         id: index + 1,
         nama_lengkap: result.nama_lengkap,
         email: result.email,
-        role: result.role,
+        role_code: RoleMapping(result.role_code),
         nip: result.nip,
         status: result.status == 'A' ? 'Active' : 'InActive',
       }));
