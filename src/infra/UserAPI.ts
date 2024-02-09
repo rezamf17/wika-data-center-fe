@@ -2,9 +2,9 @@ import axios from 'axios';
 
 class UserAPI {
 
-  async getUser() {
+  async getUser(search:string, status:string) {
     try {
-      const response = await axios.get(`http://localhost:3001/user?search=&status=`);
+      const response = await axios.get(`http://localhost:3001/user?search=${search}&status=${status}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching news:', error);

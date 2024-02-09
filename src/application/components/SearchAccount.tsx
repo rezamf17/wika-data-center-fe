@@ -5,11 +5,7 @@ interface SearchData {
   search : (data : SearchAccountEntity) => void
 }
 const SearchAccount: React.FC<SearchData> = ({search}) => {
-    const [nip, setNip] = useState('')
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [nomorHP, setNomorHP] = useState('')
-    const [role, setRole] = useState('')
+    const [searching, setSearch] = useState('')
     const [status, setStatus] = useState('')
     const gridKeyStyle = {
         textAlign : 'left',
@@ -19,9 +15,9 @@ const SearchAccount: React.FC<SearchData> = ({search}) => {
         marginBottom : '1em'
       }
       
-    const handleChangeRole = (event: SelectChangeEvent) => {
-        setRole(event.target.value);
-    };
+    // const handleChangeRole = (event: SelectChangeEvent) => {
+    //     setRole(event.target.value);
+    // };
 
     const handleChangeStatus = (event: SelectChangeEvent) => {
         setStatus(event.target.value);
@@ -29,12 +25,8 @@ const SearchAccount: React.FC<SearchData> = ({search}) => {
 
     const searchData = () => {
       const data:SearchAccountEntity = {
-        nip: nip,
-        name: name,
-        email: email,
-        nomorHP: nomorHP,
+        search: searching,
         status: status,
-        role: role,
     }
       search(data)
     }
@@ -43,56 +35,10 @@ const SearchAccount: React.FC<SearchData> = ({search}) => {
         <CardHeader title='Filter' />
           <Grid container sx={gridValueStyle} spacing={2}>
             <Grid item sx={gridKeyStyle} xs={3}>
-              NIP
+              Search
             </Grid>
             <Grid item xs={7}>
-              <TextField id="nip" value={nip} onInput={ (e:any) => setNip(e.target?.value)} type="text" size='small' placeholder='NIP'/>
-            </Grid>
-          </Grid>
-          <Grid container sx={gridValueStyle} spacing={2}>
-            <Grid item sx={gridKeyStyle} xs={3}>
-              Name
-            </Grid>
-            <Grid item xs={7}>
-              <TextField id="name" value={name} onInput={ (e:any) => setName(e.target?.value)} type="text" size='small' placeholder='Name'/>
-            </Grid>
-          </Grid>
-          <Grid container sx={gridValueStyle} spacing={2}>
-            <Grid item sx={gridKeyStyle} xs={3}>
-              Email
-            </Grid>
-            <Grid item xs={7}>
-              <TextField id="email" value={email} onInput={ (e:any) => setEmail(e.target?.value)} type="text" size='small' placeholder='Email'/>
-            </Grid>
-          </Grid>
-          <Grid container sx={gridValueStyle} spacing={2}>
-            <Grid item sx={gridKeyStyle} xs={3}>
-              Nomor HP
-            </Grid>
-            <Grid item xs={7}>
-              <TextField id="nomorHP" value={nomorHP} onInput={ (e:any) => setNomorHP(e.target?.value)} type="text" size='small' placeholder='Nomor HP'/>
-            </Grid>
-          </Grid>
-          <Grid container sx={gridValueStyle} spacing={2}>
-            <Grid item sx={gridKeyStyle} xs={3}>
-              Role
-            </Grid>
-            <Grid item xs={7}>
-            <FormControl sx={{minWidth: 220 }}>
-              <InputLabel id="demo-simple-select-label">Role</InputLabel>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-simple-select-autowidth"
-                value={role}
-                onChange={handleChangeRole}
-                label="Type"
-                size='small'
-              >
-                <MenuItem value='Admin'>Admin</MenuItem>
-                <MenuItem value='PJ Proyek'>PJ Proyek</MenuItem>
-                <MenuItem value='Karyawan'>Karyawan</MenuItem>
-              </Select>
-            </FormControl>
+              <TextField id="searching" value={searching} onInput={ (e:any) => setSearch(e.target?.value)} type="text" size='small' placeholder='Search'/>
             </Grid>
           </Grid>
           <Grid container sx={gridValueStyle} spacing={2}>

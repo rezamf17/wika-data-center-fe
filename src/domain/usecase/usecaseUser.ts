@@ -8,8 +8,8 @@ class UserService {
     this.userAPI = new UserAPI();
   }
 
-  async getAllUser(): Promise<UserEntity> {
-    const user = await this.userAPI.getUser();
+  async getAllUser(search:string, status:string): Promise<UserEntity> {
+    const user = await this.userAPI.getUser(search, status);
     return user
   }
 

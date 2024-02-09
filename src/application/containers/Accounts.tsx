@@ -27,6 +27,7 @@ interface UserEntities {
 
 const Accounts: React.FC = () => {
   const [row, setRow] = useState<UserEntities[]>([])
+  const [searching, setSearch] = useState<SearchAccountEntity|{search : '', status : ''}>({search : '', status : ''})
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -76,7 +77,7 @@ const Accounts: React.FC = () => {
   const fetchUser = async () => {
     try {
       const userService = new UserService();
-      const fetchedUser: UserEntity = await userService.getAllUser()
+      const fetchedUser: UserEntity = await userService.getAllUser(searching?.search, searching?.status)
       const users = fetchedUser.data.map((result: any, index: number) => ({
         id: index + 1,
         nama_lengkap: result.nama_lengkap,
@@ -96,10 +97,11 @@ const Accounts: React.FC = () => {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [searching]);
 
   const handleSearchData = (data: SearchAccountEntity) => {
-    console.log(data)
+    setSearch(data)
+    console.log(searching)
     // fetchNews()
   }
   return (
