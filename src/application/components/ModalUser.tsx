@@ -123,6 +123,16 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
         target.nip
         );
   };
+
+  const clearForm = ():void => {
+    setNip("")
+    setName("")
+    setEmail("")
+    setRole("")
+    setPassword("")
+    setConfirmPassword("")
+    setStatus("")
+  }
   
   return (
     <>
@@ -239,7 +249,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
 
               </Grid>
               <Grid item xs={2}>
-                <Button variant="outlined" color="primary" sx={{ marginTop: '2em' }} onClick={handleClose}>
+                <Button variant="outlined" color="primary" sx={{ marginTop: '2em' }} onClick={() => { handleClose(); clearForm(); }}>
                   Close
                 </Button>
               </Grid>
