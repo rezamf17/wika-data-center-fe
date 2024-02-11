@@ -11,7 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
 import UserService from '../../domain/usecase/usecaseUser'
-import UserEntity from '../../domain/entities/entityUser'
+import UserEntity from '../../domain/entities/Response'
 import { RoleMapping } from '../../infra/Utilities'
 import ModalUser from '../components/ModalUser'
 import { motion } from 'framer-motion'
@@ -24,6 +24,7 @@ interface UserEntities {
   role_code: string;
   status: string
 }
+
 
 const Accounts: React.FC = () => {
   const [row, setRow] = useState<UserEntities[]>([])
@@ -77,7 +78,7 @@ const Accounts: React.FC = () => {
   const fetchUser = async () => {
     try {
       const userService = new UserService();
-      const fetchedUser: UserEntity = await userService.getAllUser(searching?.search, searching?.status)
+      const fetchedUser: any = await userService.getAllUser(searching?.search, searching?.status)
       const users = fetchedUser.data.map((result: any, index: number) => ({
         id: index + 1,
         nama_lengkap: result.nama_lengkap,

@@ -12,6 +12,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material'
+import UserService from '../../domain/usecase/usecaseUser'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
@@ -24,6 +25,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
+  const [no_hp, setNoHP] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [status, setStatus] = useState('')
@@ -76,24 +78,34 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
     setStatus(event.target.value);
   };
 
-  const Submit = () => {
+  const Submit = (event: any) => {
+    event.preventDefault();
     const req = {
+      role_code : role,
       nip : nip,
-      name : name,
+      nama_lengkap : name,
       email : email,
-      password : password,
-      confirmPassword : confirmPassword,
-      role : role,
-      status : status
+      password : confirmPassword,
+      no_hp : no_hp,
+      status : status,
+      createdBy : "SYSTEM",  
+      updatedBy : "SYSTEM"
     }
-    alert('asd')
-    console.log(req)
+    const userService = new UserService();
+    userService.insertDataUser(req).then((result) => {
+      console.log(result)
+      if(result.code != 200){
+        return result.message
+      }
+    })
+    // alert('asd')
     handleClose()
   }
 
   const validationSchema = Yup.object({
     nip : Yup.number().required().integer('Must be an number'),
     name: Yup.string().required('Name is required'),
+    no_hp: Yup.number().required().integer('Must be an number'),
     email: Yup.string().email('Invalid email format').required('Email is required'),
     password: Yup.string().required('Password is required').min(6).max(16),
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match')
@@ -105,6 +117,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
   const formik = useFormik({
     initialValues : {
       nip : "",
+      no_hp : "",
       name : "",
       email : "",
       password : "",
@@ -179,6 +192,15 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
             </Grid>
             <Grid container sx={gridValueStyle} spacing={2}>
               <Grid item sx={gridKeyStyle} xs={3}>
+                Nomor HP
+              </Grid>
+              <Grid item xs={7}>
+                <TextField id="no_hp" onChange={handleForm} value={no_hp} onInput={(e: any) => setNoHP(e.target?.value)} type="text" size='small' placeholder='Nomor HP' name='no_hp' />
+                <InputLabel error>{formik.errors.no_hp}</InputLabel>
+              </Grid>
+            </Grid>
+            <Grid container sx={gridValueStyle} spacing={2}>
+              <Grid item sx={gridKeyStyle} xs={3}>
                 Password
               </Grid>
               <Grid item xs={7}>
@@ -212,9 +234,10 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
                     name='role'
                     required
                   >
-                    <MenuItem value='Admin'>Admin</MenuItem>
-                    <MenuItem value='PJ Proyek'>PJ Proyek</MenuItem>
-                    <MenuItem value='Karyawan'>Karyawan</MenuItem>
+                    <MenuItem value='A'>Admin</MenuItem>
+                    <MenuItem value='PJ'>PJ Proyek</MenuItem>
+                    <MenuItem value='P'>Pegawai</MenuItem>
+                    <MenuItem value='MP'>Member Proyek</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

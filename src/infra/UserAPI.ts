@@ -1,4 +1,5 @@
 import axios from 'axios';
+import RequestUserEntity from '../domain/entities/RequestUserEntity'
 
 class UserAPI {
 
@@ -12,9 +13,9 @@ class UserAPI {
     }
   }
 
-  async insertUser () {
+  async insertUser (userData : RequestUserEntity) {
     try {
-      const response = await axios.post(`http://localhost:3001/user`);
+      const response = await axios.post(`http://localhost:3001/user`, userData);
       return response.data;
     } catch (error) {
       console.error('Error fetching news:', error);
