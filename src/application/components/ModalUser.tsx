@@ -14,13 +14,15 @@ import {
 } from '@mui/material'
 import UserService from '../../domain/usecase/usecaseUser'
 import { useFormik } from 'formik'
+import AlertEntities from '../../domain/entities/AlertEntities'
 import * as Yup from 'yup'
 
 interface ModalProps {
   open: boolean;
   handleClose: () => void;
+  onSubmit:(res: AlertEntities) => void;
 }
-const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
+const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
   const [nip, setNip] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -93,10 +95,26 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose }) => {
     }
     const userService = new UserService();
     userService.insertDataUser(req).then((result) => {
-      console.log(result)
-      if(result.code != 200){
-        return result.message
+      // console.log(result)
+      let res:AlertEntities = {
+        code : true,
+        message : "",
+        show : true
       }
+      if(result.code == 200){
+        res = {
+          code : true,
+          message : "Data Berhasil Ditambahkan",
+          show : true
+        }
+      }else{
+        res = {
+          code : false,
+          message : result.message,
+          show : true
+        }
+      }
+      onSubmit(res)
     })
     // alert('asd')
     handleClose()

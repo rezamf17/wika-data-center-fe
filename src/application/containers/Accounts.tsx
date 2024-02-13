@@ -14,7 +14,10 @@ import UserService from '../../domain/usecase/usecaseUser'
 import UserEntity from '../../domain/entities/Response'
 import { RoleMapping } from '../../infra/Utilities'
 import ModalUser from '../components/ModalUser'
+import AlertComponent from '../components/AlertComponent'
 import { motion } from 'framer-motion'
+import { boolean } from 'yup'
+import AlertEntities from '../../domain/entities/AlertEntities'
 
 interface UserEntities {
   id: number;
@@ -28,6 +31,11 @@ interface UserEntities {
 
 const Accounts: React.FC = () => {
   const [row, setRow] = useState<UserEntities[]>([])
+  const [alert, setAlert] = useState<AlertEntities>(
+    { code: false,
+      message: "",
+      show: false
+    })
   const [searching, setSearch] = useState<SearchAccountEntity|{search : '', status : ''}>({search : '', status : ''})
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -75,6 +83,12 @@ const Accounts: React.FC = () => {
       },
     },
   ];
+  const handleAlert = (res: AlertEntities) => {
+    // Do something with res in the parent component
+    setAlert(res)
+    console.log('res alerto',res);
+  };
+
   const fetchUser = async () => {
     try {
       const userService = new UserService();
@@ -98,7 +112,8 @@ const Accounts: React.FC = () => {
 
   useEffect(() => {
     fetchUser();
-  }, [searching]);
+    
+  }, [searching, alert]);
 
   const handleSearchData = (data: SearchAccountEntity) => {
     setSearch(data)
@@ -117,12 +132,13 @@ const Accounts: React.FC = () => {
         <h1>Accounts</h1>
         <Breadcrumbs title='Accounts' icon={<PeopleIcon sx={{ mr: 0.5 }} fontSize="inherit" />} />
         <Card sx={{ height: 'auto' }}>
+        <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
           <SearchAccount search={handleSearchData} />
           <Grid container justifyContent="flex-end" >
             <Grid item sx={{ margin: '1em' }}>
               <Button variant="contained" color="success" onClick={handleOpen}>
                 <AddIcon />
-                Add User
+                Add User         {alert.show}
               </Button>
             </Grid>
           </Grid>
@@ -139,7 +155,7 @@ const Accounts: React.FC = () => {
             </ThemeProvider>
           )}
         </Card>
-        <ModalUser open={open} handleClose={handleClose} />
+        <ModalUser open={open} handleClose={handleClose} onSubmit={handleAlert} />
       </Container>
     </motion.div>
   )
