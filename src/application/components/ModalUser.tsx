@@ -204,7 +204,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 NIP
               </Grid>
               <Grid item xs={7}>
-                <TextField id="nip" onChange={handleForm} value={nip} onInput={(e: any) => setNip(e.target?.value)} type="text" size='small' placeholder='NIP' name='nip' />
+                <TextField id="nip" onChange={handleForm} value={nip} onInput={(e: any) => setNip(e.target?.value)} type="text" size='small' placeholder='NIP' name='nip' required/>
                 <InputLabel error>{formik.errors.nip}</InputLabel>
               </Grid>
             </Grid>
@@ -213,7 +213,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Name
               </Grid>
               <Grid item xs={7}>
-                <TextField id="name" value={name} onChange={handleForm} onInput={(e: any) => setName(e.target?.value)} type="text" size='small' placeholder='Name' name='name' />
+                <TextField id="name" value={name} onChange={handleForm} onInput={(e: any) => setName(e.target?.value)} type="text" size='small' placeholder='Name' name='name' required/>
                 <InputLabel error>{formik.errors.name}</InputLabel>
               </Grid>
             </Grid>
@@ -222,7 +222,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Email
               </Grid>
               <Grid item xs={7}>
-                <TextField id="email" onChange={handleForm} value={email} onInput={(e: any) => setEmail(e.target?.value)} type="text" size='small' placeholder='Email' name='email' />
+                <TextField id="email" onChange={handleForm} value={email} onInput={(e: any) => setEmail(e.target?.value)} type="text" size='small' placeholder='Email' name='email' required/>
                 <InputLabel error>{formik.errors.email}</InputLabel>
               </Grid>
             </Grid>
@@ -231,7 +231,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Nomor HP
               </Grid>
               <Grid item xs={7}>
-                <TextField id="no_hp" onChange={handleForm} value={no_hp} onInput={(e: any) => setNoHP(e.target?.value)} type="text" size='small' placeholder='Nomor HP' name='no_hp' />
+                <TextField id="no_hp" onChange={handleForm} value={no_hp} onInput={(e: any) => setNoHP(e.target?.value)} type="text" size='small' placeholder='Nomor HP' name='no_hp' required/>
                 <InputLabel error>{formik.errors.no_hp}</InputLabel>
               </Grid>
             </Grid>
@@ -240,7 +240,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Password
               </Grid>
               <Grid item xs={7}>
-                <TextField id="password" onChange={handleForm} value={password} onInput={(e: any) => setPassword(e.target?.value)} type="password" size='small' placeholder='Password' name='password'/>
+                <TextField id="password" onChange={handleForm} value={password} onInput={(e: any) => setPassword(e.target?.value)} type="password" size='small' placeholder='Password' name='password' required/>
                 <InputLabel error>{formik.errors.password}</InputLabel>
               </Grid>
             </Grid>
@@ -249,7 +249,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Confirm Password
               </Grid>
               <Grid item xs={7}>
-                <TextField id="confirmPassword" onChange={handleForm} value={confirmPassword} onInput={(e: any) => setConfirmPassword(e.target?.value)} type="password" size='small' placeholder='Confirm Password' name='confirmPassword' />
+                <TextField id="confirmPassword" onChange={handleForm} value={confirmPassword} onInput={(e: any) => setConfirmPassword(e.target?.value)} type="password" size='small' placeholder='Confirm Password' name='confirmPassword' required/>
                 <InputLabel error>{formik.errors.confirmPassword}</InputLabel>
               </Grid>
             </Grid>
