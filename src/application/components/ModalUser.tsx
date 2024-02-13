@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Button,
@@ -15,6 +15,7 @@ import {
 import UserService from '../../domain/usecase/usecaseUser'
 import { useFormik } from 'formik'
 import AlertEntities from '../../domain/entities/AlertEntities'
+import AlertComponent from '../components/AlertComponent'
 import * as Yup from 'yup'
 
 interface ModalProps {
@@ -31,6 +32,11 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [status, setStatus] = useState('')
+  const [alert, setAlert] = useState<AlertEntities>(
+    { code: false,
+      message: "",
+      show: false
+    })
  
  
   const style = {
@@ -107,6 +113,8 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
           message : "Data Berhasil Ditambahkan",
           show : true
         }
+        clearForm()
+        handleClose()
       }else{
         res = {
           code : false,
@@ -114,10 +122,10 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
           show : true
         }
       }
+      setAlert(res)
       onSubmit(res)
     })
     // alert('asd')
-    handleClose()
   }
 
   const validationSchema = Yup.object({
@@ -159,11 +167,20 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
     setNip("")
     setName("")
     setEmail("")
+    setNoHP("")
     setRole("")
     setPassword("")
     setConfirmPassword("")
     setStatus("")
+    setAlert({ code: false,
+      message: "",
+      show: false
+    })
   }
+
+  useEffect(() => {
+    
+  }, [alert]);
   
   return (
     <>
@@ -175,6 +192,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
       >
         <form onSubmit={Submit}>
         <Box sx={style}>
+        <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
           <Box sx={headerBox}>
             <Typography id="modal-modal-title" align='center' variant="h6" component="h2" gutterBottom>
               Manage Account

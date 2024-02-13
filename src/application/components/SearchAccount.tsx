@@ -3,8 +3,9 @@ import {FormControl, CardHeader, Grid, TextField, Select, MenuItem, InputLabel, 
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
 interface SearchData {
   search : (data : SearchAccountEntity) => void
+  reset : () => void;
 }
-const SearchAccount: React.FC<SearchData> = ({search}) => {
+const SearchAccount: React.FC<SearchData> = ({search, reset}) => {
     const [searching, setSearch] = useState('')
     const [status, setStatus] = useState('')
     const gridKeyStyle = {
@@ -29,6 +30,12 @@ const SearchAccount: React.FC<SearchData> = ({search}) => {
         status: status,
     }
       search(data)
+    }
+
+    const resetData = () => {
+      setSearch('')
+      setStatus('')
+      reset()
     }
     return (
         <>
@@ -64,7 +71,7 @@ const SearchAccount: React.FC<SearchData> = ({search}) => {
           </Grid>
           <Grid container sx={gridValueStyle} spacing={2}>
             <Grid sx={gridKeyStyle} item>
-              <Button variant="outlined">Reset</Button>
+              <Button variant="outlined" onClick={() => resetData()}>Reset</Button>
             </Grid>
             <Grid item xs={9}>
               

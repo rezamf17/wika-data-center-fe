@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AlertEntities from '../../domain/entities/AlertEntities'
 
 const AlertComponent: React.FC<AlertEntities> = ({code, message, show}) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 	const [severity, setSeverity] = useState<AlertColor | undefined>();
 	
 	useEffect(() => {
@@ -18,7 +18,7 @@ const AlertComponent: React.FC<AlertEntities> = ({code, message, show}) => {
 			setSeverity('error')
 		}
 		setOpen(show)
-  }, []);
+  }, [show]);
   return (
     <Box sx={{ width: '100%' }}>
       <Collapse in={open}>

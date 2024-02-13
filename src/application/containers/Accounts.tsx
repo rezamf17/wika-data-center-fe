@@ -110,6 +110,11 @@ const Accounts: React.FC = () => {
     }
   };
 
+  const reset = () => {
+    setSearch({search : '', status : ''})
+    fetchUser()
+  }
+
   useEffect(() => {
     fetchUser();
     
@@ -133,12 +138,12 @@ const Accounts: React.FC = () => {
         <Breadcrumbs title='Accounts' icon={<PeopleIcon sx={{ mr: 0.5 }} fontSize="inherit" />} />
         <Card sx={{ height: 'auto' }}>
         <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
-          <SearchAccount search={handleSearchData} />
+          <SearchAccount search={handleSearchData} reset={reset}/>
           <Grid container justifyContent="flex-end" >
             <Grid item sx={{ margin: '1em' }}>
               <Button variant="contained" color="success" onClick={handleOpen}>
                 <AddIcon />
-                Add User         {alert.show}
+                Add User
               </Button>
             </Grid>
           </Grid>
