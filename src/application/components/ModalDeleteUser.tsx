@@ -4,13 +4,7 @@ import {
   Button,
   Modal,
   Box,
-  Typography,
-  TextField,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
+  Typography
 } from '@mui/material'
 import UserService from '../../domain/usecase/usecaseUser'
 import { useFormik } from 'formik'
@@ -26,6 +20,7 @@ interface ModalProps {
 	data : UserEntities;
 }
 const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) => {
+  const [id, setId] = useState<number>(0)
   const [nip, setNip] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -74,10 +69,36 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) 
 
   const Submit = (event: any) => {
     event.preventDefault();
-    
+    const userService = new UserService();
+    userService.deleteDataUser(id).then((result) => {
+      // console.log(result)
+      let res:AlertEntities = {
+        code : true,
+        message : "",
+        show : true
+      }
+      if(result.code == 200){
+        res = {
+          code : true,
+          message : "Data Berhasil Dihapus",
+          show : true
+        }
+        clearForm()
+        handleClose()
+      }else{
+        res = {
+          code : false,
+          message : result.message,
+          show : true
+        }
+      }
+      setAlert(res)
+      onSubmit(res)
+    })
   }
 
 	const readData = () => {
+    setId(data.id_data ?? 0)
 		setNip(data.nip)
 		setName(data.nama_lengkap)
 		setEmail(data.email)
@@ -86,8 +107,15 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) 
 		setStatus(data.status)
 	}
 
+  const clearForm = ():void => {
+    setAlert({ code: false,
+      message: "",
+      show: false
+    })
+  }
+
   useEffect(() => {
-    // console.log(data);
+    console.log('data',data);
 		readData()
   }, [alert, data]);
   
@@ -99,7 +127,6 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) 
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <form onSubmit={Submit}>
         <Box sx={style}>
         <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
           <Box sx={headerBox}>
@@ -168,14 +195,13 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) 
                 </Button>
               </Grid>
               <Grid item xs={2}>
-                <Button type='submit' variant="contained" color="error" sx={{ marginTop: '2em' }}>
+                <Button type='submit' variant="contained" color="error" sx={{ marginTop: '2em' }} onClick={Submit}>
                   Delete
                 </Button>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        </form>
       </Modal>
     </>
   )

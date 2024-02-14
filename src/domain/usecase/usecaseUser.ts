@@ -19,6 +19,11 @@ class UserService {
     const user = await this.userAPI.insertUser(userData);
     return user
   }
+
+  async deleteDataUser(id:number): Promise<Response> {
+    const user = await this.userAPI.deleteUser(id);
+    return user
+  }
 }
 
 export default UserService;

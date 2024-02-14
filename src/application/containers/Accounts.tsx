@@ -59,6 +59,9 @@ const Accounts: React.FC = () => {
       headerName: 'No',
       width: 50,
     },
+    {
+      field : 'id_data'
+    },
     { field: 'nip', headerName: 'NIP', width: 80 },
     { field: 'nama_lengkap', headerName: 'Name', width: 250 },
     { field: 'email', headerName: 'Email', width: 250 },
@@ -95,6 +98,7 @@ const Accounts: React.FC = () => {
       },
     },
   ];
+  const hiddenColumns = ['id_data'];
   const handleAlert = (res: AlertEntities) => {
     // Do something with res in the parent component
     setAlert(res)
@@ -107,6 +111,7 @@ const Accounts: React.FC = () => {
       const fetchedUser: any = await userService.getAllUser(searching?.search, searching?.status)
       const users = fetchedUser.data.map((result: any, index: number) => ({
         id: index + 1,
+        id_data: result.id,
         nama_lengkap: result.nama_lengkap,
         email: result.email,
         role_code: RoleMapping(result.role_code),
@@ -168,7 +173,7 @@ const Accounts: React.FC = () => {
             <ThemeProvider theme={theme}>
               <DataGrid
                 rows={row}
-                columns={columns}
+                columns={columns.filter(col => !hiddenColumns.includes(col.field))}
               />
             </ThemeProvider>
           )}

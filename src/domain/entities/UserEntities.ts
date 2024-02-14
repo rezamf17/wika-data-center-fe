@@ -1,5 +1,6 @@
 interface UserEntities {
     id : number;
+    id_data? : number;
     nip : string;
     nama_lengkap : string;
     email : string;

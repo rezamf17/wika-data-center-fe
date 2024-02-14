@@ -22,6 +22,16 @@ class UserAPI {
       throw error;
     }
   }
+
+  async deleteUser (id:number) {
+    try {
+      const response = await axios.delete(`http://localhost:3001/user`, { data: { id } });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      throw error;
+    }
+  }
 }
 
 export default UserAPI;
