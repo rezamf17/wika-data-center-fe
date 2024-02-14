@@ -11,26 +11,28 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchAccountEntity from '../../domain/entities/SearchAccount'
 import UserService from '../../domain/usecase/usecaseUser'
-import UserEntity from '../../domain/entities/Response'
+import UserEntities from '../../domain/entities/UserEntities'
 import { RoleMapping } from '../../infra/Utilities'
 import ModalUser from '../components/ModalUser'
+import ModalDeleteUser from '../components/ModalDeleteUser'
 import AlertComponent from '../components/AlertComponent'
 import { motion } from 'framer-motion'
-import { boolean } from 'yup'
 import AlertEntities from '../../domain/entities/AlertEntities'
-
-interface UserEntities {
-  id: number;
-  nip: string;
-  nama_lengkap: string;
-  email: string;
-  role_code: string;
-  status: string
-}
 
 
 const Accounts: React.FC = () => {
   const [row, setRow] = useState<UserEntities[]>([])
+  const [dataDelete, setDataDelete] = useState<UserEntities>(
+    {
+      id : 0, 
+      email : "",
+      nama_lengkap : "",
+      nip : "",
+      role_code : "",
+      no_hp : "",
+      status : ""
+    }
+  )
   const [alert, setAlert] = useState<AlertEntities>(
     { code: false,
       message: "",
@@ -38,10 +40,13 @@ const Accounts: React.FC = () => {
     })
   const [searching, setSearch] = useState<SearchAccountEntity|{search : '', status : ''}>({search : '', status : ''})
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+  const handleOpenDelete = () => setOpenDelete(true);
+  const handleCloseDelete = () => setOpenDelete(false);
   const theme = createTheme({
     typography: {
       fontFamily: 'system-ui',
@@ -54,20 +59,27 @@ const Accounts: React.FC = () => {
       headerName: 'No',
       width: 50,
     },
-    { field: 'nip', headerName: 'NIP', width: 100 },
+    { field: 'nip', headerName: 'NIP', width: 80 },
     { field: 'nama_lengkap', headerName: 'Name', width: 250 },
     { field: 'email', headerName: 'Email', width: 250 },
     { field: 'role_code', headerName: 'Role', width: 150 },
-    { field: 'status', headerName: 'Status', width: 120 },
+    { field: 'no_hp', headerName: 'Nomor HP', width: 150 },
+    { field: 'status', headerName: 'Status', width: 80 },
     {
       field: 'action',
       headerName: 'Action',
-      width: 200,
+      width: 120,
       headerAlign: 'center',
       renderCell: (params: GridRenderCellParams) => {
         const onClickHandler = () => {
           // Aksi yang ingin Anda lakukan ketika tombol ditekan
           console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
+        };
+        const onClickDelete = () => {
+          // Aksi yang ingin Anda lakukan ketika tombol ditekan
+          handleOpenDelete()
+          setDataDelete(params.row)
+          console.log('data yang mau di delete', params.row);
         };
 
         return (
@@ -75,7 +87,7 @@ const Accounts: React.FC = () => {
             <Button onClick={onClickHandler} color='success'>
               <EditIcon />
             </Button>
-            <Button onClick={onClickHandler} color='error'>
+            <Button onClick={onClickDelete} color='error'>
               <DeleteIcon />
             </Button>
           </>
@@ -99,6 +111,7 @@ const Accounts: React.FC = () => {
         email: result.email,
         role_code: RoleMapping(result.role_code),
         nip: result.nip,
+        no_hp: result.no_hp,
         status: result.status == 'A' ? 'Active' : 'InActive',
       }));
       setRow(users)
@@ -118,7 +131,7 @@ const Accounts: React.FC = () => {
   useEffect(() => {
     fetchUser();
     
-  }, [searching, alert]);
+  }, [searching, alert, dataDelete]);
 
   const handleSearchData = (data: SearchAccountEntity) => {
     setSearch(data)
@@ -161,6 +174,7 @@ const Accounts: React.FC = () => {
           )}
         </Card>
         <ModalUser open={open} handleClose={handleClose} onSubmit={handleAlert} />
+        <ModalDeleteUser open={openDelete} handleClose={handleCloseDelete} onSubmit={handleAlert} data={dataDelete} />
       </Container>
     </motion.div>
   )
