@@ -15,6 +15,7 @@ import UserEntities from '../../domain/entities/UserEntities'
 import { RoleMapping } from '../../infra/Utilities'
 import ModalUser from '../components/ModalUser'
 import ModalDeleteUser from '../components/ModalDeleteUser'
+import ModalEditUser from '../components/ModalEditUser'
 import AlertComponent from '../components/AlertComponent'
 import { motion } from 'framer-motion'
 import AlertEntities from '../../domain/entities/AlertEntities'
@@ -33,6 +34,17 @@ const Accounts: React.FC = () => {
       status : ""
     }
   )
+  const [dataEdit, setDataEdit] = useState<UserEntities>(
+    {
+      id : 0, 
+      email : "",
+      nama_lengkap : "",
+      nip : "",
+      role_code : "",
+      no_hp : "",
+      status : ""
+    }
+  )
   const [alert, setAlert] = useState<AlertEntities>(
     { code: false,
       message: "",
@@ -41,12 +53,15 @@ const Accounts: React.FC = () => {
   const [searching, setSearch] = useState<SearchAccountEntity|{search : '', status : ''}>({search : '', status : ''})
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleOpenDelete = () => setOpenDelete(true);
   const handleCloseDelete = () => setOpenDelete(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
   const theme = createTheme({
     typography: {
       fontFamily: 'system-ui',
@@ -74,9 +89,11 @@ const Accounts: React.FC = () => {
       width: 120,
       headerAlign: 'center',
       renderCell: (params: GridRenderCellParams) => {
-        const onClickHandler = () => {
+        const onClickEdit = () => {
           // Aksi yang ingin Anda lakukan ketika tombol ditekan
-          console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
+          console.log('data yang mau di edit:', params.row);
+          handleOpenEdit()
+          setDataEdit(params.row)
         };
         const onClickDelete = () => {
           // Aksi yang ingin Anda lakukan ketika tombol ditekan
@@ -87,7 +104,7 @@ const Accounts: React.FC = () => {
 
         return (
           <>
-            <Button onClick={onClickHandler} color='success'>
+            <Button onClick={onClickEdit} color='success'>
               <EditIcon />
             </Button>
             <Button onClick={onClickDelete} color='error'>
@@ -180,6 +197,7 @@ const Accounts: React.FC = () => {
         </Card>
         <ModalUser open={open} handleClose={handleClose} onSubmit={handleAlert} />
         <ModalDeleteUser open={openDelete} handleClose={handleCloseDelete} onSubmit={handleAlert} data={dataDelete} />
+        <ModalEditUser open={openEdit} handleClose={handleCloseEdit} onSubmit={handleAlert} data={dataEdit} />
       </Container>
     </motion.div>
   )

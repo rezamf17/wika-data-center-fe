@@ -16,14 +16,18 @@ import UserService from '../../domain/usecase/usecaseUser'
 import { useFormik } from 'formik'
 import AlertEntities from '../../domain/entities/AlertEntities'
 import AlertComponent from '../components/AlertComponent'
+import UserEntities from '../../domain/entities/UserEntities'
+import { RoleToRoleCode } from '../../infra/Utilities'
 import * as Yup from 'yup'
 
 interface ModalProps {
   open: boolean;
   handleClose: () => void;
   onSubmit:(res: AlertEntities) => void;
+  data : UserEntities
 }
-const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
+const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) => {
+	const [id, setId] = useState<number>(0)
   const [nip, setNip] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -162,7 +166,15 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
         target.nip
         );
   };
-
+  const readData = () => {
+    setId(data.id_data ?? 0)
+		setNip(data.nip)
+		setName(data.nama_lengkap)
+		setEmail(data.email)
+		setRole(RoleToRoleCode(data.role_code))
+		setNoHP(data.no_hp)
+		setStatus(data.status == 'Active' ? 'A' : 'I')
+	}
   const clearForm = ():void => {
     setNip("")
     setName("")
@@ -179,8 +191,8 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
   }
 
   useEffect(() => {
-    
-  }, [alert]);
+    readData()
+  }, [alert, data]);
   
   return (
     <>
@@ -195,7 +207,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
         <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
           <Box sx={headerBox}>
             <Typography id="modal-modal-title" align='center' variant="h6" component="h2" gutterBottom>
-              Tambah Account
+              Edit Account
             </Typography>
           </Box>
           <Box sx={bodyBox}>
@@ -255,7 +267,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
             </Grid>
             <Grid container sx={gridValueStyle} spacing={2}>
               <Grid item sx={gridKeyStyle} xs={3}>
-                Role
+                Role {role}
               </Grid>
               <Grid item xs={7}>
                 <FormControl sx={{ minWidth: 220 }}>
