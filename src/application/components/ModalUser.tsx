@@ -128,7 +128,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
     // alert('asd')
   }
 
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     nip : Yup.number().required().integer('Must be an number'),
     name: Yup.string().required('Name is required'),
     no_hp: Yup.number().required().integer('Must be an number'),
@@ -136,8 +136,8 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
     password: Yup.string().required('Password is required').min(6).max(16),
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Confirm Password is required'),
-    role : Yup.string().required(),
-    status : Yup.string().required()
+    // role : Yup.string().required(),
+    // status : Yup.string().required()
   });
 
   const formik = useFormik({
@@ -151,15 +151,60 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
       role : "",
       status : ""
     },
-    validationSchema,
-    onSubmit: Submit
+    validationSchema : validationSchema,
+    onSubmit: (values) => {
+      // Lakukan sesuatu dengan nilai-nilai yang dikirim saat formulir disubmit
+      const req = {
+        role_code : role,
+        nip : nip,
+        nama_lengkap : name,
+        email : email,
+        password : confirmPassword,
+        no_hp : no_hp,
+        status : status,
+        createdBy : "SYSTEM",  
+        updatedBy : "SYSTEM"
+      }
+      const userService = new UserService();
+      userService.insertDataUser(req).then((result) => {
+        // console.log(result)
+        let res:AlertEntities = {
+          code : true,
+          message : "",
+          show : true
+        }
+        if(result.code == 200){
+          res = {
+            code : true,
+            message : "Data Berhasil Ditambahkan",
+            show : true
+          }
+          clearForm()
+          handleClose()
+        }else{
+          res = {
+            code : false,
+            message : result.message,
+            show : true
+          }
+        }
+        setAlert(res)
+        onSubmit(res)
+      })
+      console.log("Form submitted with values:", values)
+    }
   })
   const handleForm = (event:any) => {
     const { target } = event;
     formik.setFieldValue(
         target.name, 
         target.value, 
-        target.nip
+        target.nip,
+        // target.no_hp,
+        // target.password,
+        // target.confirmPassword,
+        // target.role,
+        // target.status,
         );
   };
 
@@ -190,7 +235,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <form onSubmit={Submit}>
+        <form onSubmit={formik.handleSubmit}>
         <Box sx={style}>
         <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
           <Box sx={headerBox}>

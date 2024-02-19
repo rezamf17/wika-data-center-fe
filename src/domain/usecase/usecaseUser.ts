@@ -20,6 +20,11 @@ class UserService {
     return user
   }
 
+  async updateDataUser(userData:RequestUserEntity): Promise<Response> {
+    const user = await this.userAPI.updateUser(userData);
+    return user
+  }
+
   async deleteDataUser(id:number): Promise<Response> {
     const user = await this.userAPI.deleteUser(id);
     return user

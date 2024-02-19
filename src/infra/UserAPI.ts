@@ -23,6 +23,16 @@ class UserAPI {
     }
   }
 
+  async updateUser (userData : RequestUserEntity) {
+    try {
+      const response = await axios.put(`http://localhost:3001/user`, userData);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      throw error;
+    }
+  }
+
   async deleteUser (id:number) {
     try {
       const response = await axios.delete(`http://localhost:3001/user`, { data: { id } });
