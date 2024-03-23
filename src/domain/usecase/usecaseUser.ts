@@ -1,5 +1,7 @@
 import UserAPI from '../../infra/UserAPI';
-import UserEntity from '../entities/entityUser';
+import UserEntities from '../entities/UserEntities';
+import Response from '../entities/Response';
+import RequestUserEntity from '../entities/RequestUserEntity';
 
 class UserService {
   private userAPI: UserAPI;
@@ -8,13 +10,23 @@ class UserService {
     this.userAPI = new UserAPI();
   }
 
-  async getAllUser(): Promise<UserEntity> {
-    const user = await this.userAPI.getUser();
+  async getAllUser(search:string, status:string): Promise<UserEntities> {
+    const user = await this.userAPI.getUser(search, status);
     return user
   }
 
-  async insertDataUser(): Promise<UserEntity> {
-    const user = await this.userAPI.insertUser();
+  async insertDataUser(userData:RequestUserEntity): Promise<Response> {
+    const user = await this.userAPI.insertUser(userData);
+    return user
+  }
+
+  async updateDataUser(userData:RequestUserEntity): Promise<Response> {
+    const user = await this.userAPI.updateUser(userData);
+    return user
+  }
+
+  async deleteDataUser(id:number): Promise<Response> {
+    const user = await this.userAPI.deleteUser(id);
     return user
   }
 }

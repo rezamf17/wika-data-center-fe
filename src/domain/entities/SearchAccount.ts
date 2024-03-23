@@ -1,9 +1,5 @@
 interface SearchAccount {
-    nip : string;
-    name : string;
-    email : string;
-    nomorHP : string;
-    role : string;
+    search : string;
     status : string
 }
 

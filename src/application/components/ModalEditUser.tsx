@@ -15,15 +15,19 @@ import {
 import UserService from '../../domain/usecase/usecaseUser'
 import { useFormik } from 'formik'
 import AlertEntities from '../../domain/entities/AlertEntities'
-import AlertComponent from '../components/AlertComponent'
+// import AlertComponent from '../components/AlertComponent'
+import UserEntities from '../../domain/entities/UserEntities'
+import { RoleToRoleCode } from '../../infra/Utilities'
 import * as Yup from 'yup'
 
 interface ModalProps {
   open: boolean;
   handleClose: () => void;
   onSubmit:(res: AlertEntities) => void;
+  data : UserEntities
 }
-const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
+const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit, data }) => {
+	const [id, setId] = useState<number>(0)
   const [nip, setNip] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -87,8 +91,41 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
   };
 
   const Submit = (event: any) => {
-    event.preventDefault();
+    
+    // alert('asd')
+  }
+
+  const validationSchema = Yup.object().shape({
+    nip : Yup.number().required().integer('Must be an number'),
+    name: Yup.string().required('Name is required'),
+    no_hp: Yup.number().required().integer('Must be an number'),
+    email: Yup.string().email('Invalid email format').required('Email is required'),
+    password: Yup.string().min(6).max(16),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match'),
+    // role : Yup.string().required(),
+    // status : Yup.string().required()
+  });
+
+  useEffect(() => {
+    readData()
+  }, [alert, data]);
+
+  const formik = useFormik({
+    initialValues : {
+      nip : nip,
+      no_hp : no_hp,
+      name : name,
+      email : "",
+      password : "",
+      confirmPassword : "",
+      role_code : role,
+      status : status
+    },
+    validationSchema : validationSchema,
+    onSubmit: (values) => {
+      // event.preventDefault();
     const req = {
+      id : id,
       role_code : role,
       nip : nip,
       nama_lengkap : name,
@@ -100,7 +137,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
       updatedBy : "SYSTEM"
     }
     const userService = new UserService();
-    userService.insertDataUser(req).then((result) => {
+    userService.updateDataUser(req).then((result) => {
       // console.log(result)
       let res:AlertEntities = {
         code : true,
@@ -110,7 +147,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
       if(result.code == 200){
         res = {
           code : true,
-          message : "Data Berhasil Ditambahkan",
+          message : "Data Berhasil Update",
           show : true
         }
         clearForm()
@@ -125,73 +162,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
       setAlert(res)
       onSubmit(res)
     })
-    // alert('asd')
-  }
-
-  const validationSchema = Yup.object().shape({
-    nip : Yup.number().required().integer('Must be an number'),
-    name: Yup.string().required('Name is required'),
-    no_hp: Yup.number().required().integer('Must be an number'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
-    password: Yup.string().required('Password is required').min(6).max(16),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
-    // role : Yup.string().required(),
-    // status : Yup.string().required()
-  });
-
-  const formik = useFormik({
-    initialValues : {
-      nip : "",
-      no_hp : "",
-      name : "",
-      email : "",
-      password : "",
-      confirmPassword : "",
-      role : "",
-      status : ""
-    },
-    validationSchema : validationSchema,
-    onSubmit: (values) => {
-      // Lakukan sesuatu dengan nilai-nilai yang dikirim saat formulir disubmit
-      const req = {
-        role_code : role,
-        nip : nip,
-        nama_lengkap : name,
-        email : email,
-        password : confirmPassword,
-        no_hp : no_hp,
-        status : status,
-        createdBy : "SYSTEM",  
-        updatedBy : "SYSTEM"
-      }
-      const userService = new UserService();
-      userService.insertDataUser(req).then((result) => {
-        // console.log(result)
-        let res:AlertEntities = {
-          code : true,
-          message : "",
-          show : true
-        }
-        if(result.code == 200){
-          res = {
-            code : true,
-            message : "Data Berhasil Ditambahkan",
-            show : true
-          }
-          clearForm()
-          handleClose()
-        }else{
-          res = {
-            code : false,
-            message : result.message,
-            show : true
-          }
-        }
-        setAlert(res)
-        onSubmit(res)
-      })
-      console.log("Form submitted with values:", values)
+    console.log("Form submitted with values:", values)
     }
   })
   const handleForm = (event:any) => {
@@ -199,15 +170,18 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
     formik.setFieldValue(
         target.name, 
         target.value, 
-        target.nip,
-        // target.no_hp,
-        // target.password,
-        // target.confirmPassword,
-        // target.role,
-        // target.status,
+        target.nip
         );
   };
-
+  const readData = () => {
+    setId(data.id_data ?? 0)
+		setNip(data.nip)
+		setName(data.nama_lengkap)
+		setEmail(data.email)
+		setRole(RoleToRoleCode(data.role_code))
+		setNoHP(data.no_hp)
+		setStatus(data.status == 'Active' ? 'A' : 'I')
+	}
   const clearForm = ():void => {
     setNip("")
     setName("")
@@ -223,9 +197,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
     })
   }
 
-  useEffect(() => {
-    
-  }, [alert]);
+
   
   return (
     <>
@@ -237,10 +209,10 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
       >
         <form onSubmit={formik.handleSubmit}>
         <Box sx={style}>
-        <AlertComponent code={alert.code} message={alert.message} show={alert.show}/>
+        {/* <AlertComponent code={alert.code} message={alert.message} show={alert.show}/> */}
           <Box sx={headerBox}>
             <Typography id="modal-modal-title" align='center' variant="h6" component="h2" gutterBottom>
-              Tambah Account
+              Edit Account
             </Typography>
           </Box>
           <Box sx={bodyBox}>
@@ -285,8 +257,11 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Password
               </Grid>
               <Grid item xs={7}>
-                <TextField id="password" onChange={handleForm} value={password} onInput={(e: any) => setPassword(e.target?.value)} type="password" size='small' placeholder='Password' name='password' required/>
+                <TextField id="password" onChange={handleForm} value={password} onInput={(e: any) => setPassword(e.target?.value)} type="password" size='small' placeholder='Password' name='password'/>
                 <InputLabel error>{formik.errors.password}</InputLabel>
+                <Typography variant="caption" display="block" gutterBottom>
+                  <i>*kosongkan password jika tidak diganti</i>
+                </Typography>
               </Grid>
             </Grid>
             <Grid container sx={gridValueStyle} spacing={2}>
@@ -294,7 +269,7 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
                 Confirm Password
               </Grid>
               <Grid item xs={7}>
-                <TextField id="confirmPassword" onChange={handleForm} value={confirmPassword} onInput={(e: any) => setConfirmPassword(e.target?.value)} type="password" size='small' placeholder='Confirm Password' name='confirmPassword' required/>
+                <TextField id="confirmPassword" onChange={handleForm} value={confirmPassword} onInput={(e: any) => setConfirmPassword(e.target?.value)} type="password" size='small' placeholder='Confirm Password' name='confirmPassword'/>
                 <InputLabel error>{formik.errors.confirmPassword}</InputLabel>
               </Grid>
             </Grid>
@@ -353,12 +328,12 @@ const ModalUser: React.FC<ModalProps> = ({ open, handleClose, onSubmit }) => {
 
               </Grid>
               <Grid item xs={2}>
-                <Button variant="outlined" color="primary" sx={{ marginTop: '2em' }} onClick={() => { handleClose(); clearForm(); }}>
+                <Button variant="outlined" color="success" sx={{ marginTop: '2em' }} onClick={() => { handleClose(); clearForm(); }}>
                   Close
                 </Button>
               </Grid>
               <Grid item xs={2}>
-                <Button type='submit' variant="contained" color="primary" sx={{ marginTop: '2em' }}>
+                <Button type='submit' variant="contained" color="success" sx={{ marginTop: '2em' }}>
                   Save
                 </Button>
               </Grid>
