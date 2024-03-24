@@ -13,6 +13,7 @@ import {Response, Project} from '../../domain/entities/entityProject'
 import AddIcon from '@mui/icons-material/Add';
 import {motion} from 'framer-motion'
 import { useNavigate } from 'react-router-dom';
+import {IsoFormatDate} from '../../infra/Tools'
 
 const Projects: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -29,17 +30,17 @@ const Projects: React.FC = () => {
   const navigate = useNavigate()
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'No', width: 50 },
-    { field: 'projectName', headerName: 'Nama Proyek', width: 200 },
-    { field: 'status', headerName: 'Status Project', width: 150 },
-    { field: 'departemen', headerName: 'Departemen', width: 150 },
-    { field: 'location', headerName: 'Tempat Proyek', width: 150 },
-    { field: 'startProject', headerName: 'Tanggal Berakhir Proyek', width: 100 },
-    { field: 'endProject', headerName: 'Tanggal Berakhir Proyek', width: 100 },
-    { field: 'description', headerName: 'Deskripsi', width: 100 },
+    { field: 'projectName', headerName: 'Nama Proyek', width: 250 },
+    { field: 'status', headerName: 'Status Project', width:200 },
+    // { field: 'departemen', headerName: 'Departemen', width: 150 },
+    // { field: 'location', headerName: 'Tempat Proyek', width: 150 },
+    { field: 'startProject', headerName: 'Tanggal Berakhir Proyek', width: 220 },
+    { field: 'endProject', headerName: 'Tanggal Berakhir Proyek', width: 220 },
+    // { field: 'description', headerName: 'Deskripsi', width: 100 },
     {
       field: 'action',
       headerName: 'Action',
-      width: 100,
+      width: 140,
       headerAlign: 'center',
       renderCell: (params: GridRenderCellParams) => {
         const onClickHandler = () => {
@@ -63,8 +64,8 @@ const Projects: React.FC = () => {
         status: result.status,
         departemen: result.departemen,
         location: result.location,
-        endProject: result.endProject,
-        startProject: result.startProject,
+        endProject: IsoFormatDate(result.endProject, "YYYY-MM-DD HH:mm:ss"),
+        startProject: IsoFormatDate(result.startProject, "YYYY-MM-DD HH:mm:ss"),
         description: result.description,
         pj_proyek : result.pj_proyek
       }))
