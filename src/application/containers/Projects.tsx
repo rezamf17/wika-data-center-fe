@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import SearchProject from '../components/SearchProject'
@@ -8,11 +8,16 @@ import { Container, Card, Button, Grid } from '@mui/material'
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ProjectService from '../../domain/usecase/usecaseProject'
+import {Response, Project} from '../../domain/entities/entityProject'
 import AddIcon from '@mui/icons-material/Add';
 import {motion} from 'framer-motion'
+import { useNavigate } from 'react-router-dom';
+import {IsoFormatDate} from '../../infra/Tools'
 
 const Projects: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [row, setRow] = useState<Project[]>([])
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
@@ -22,24 +27,25 @@ const Projects: React.FC = () => {
     },
   });
 
+  const navigate = useNavigate()
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'No', width: 50 },
-    { field: 'projectName', headerName: 'Nama Proyek', width: 200 },
-    { field: 'status', headerName: 'Status Project', width: 150 },
-    { field: 'departemen', headerName: 'Departemen', width: 150 },
-    { field: 'location', headerName: 'Tempat Proyek', width: 150 },
-    { field: 'startProject', headerName: 'Tanggal Berakhir Proyek', width: 100 },
-    { field: 'endProject', headerName: 'Tanggal Berakhir Proyek', width: 100 },
-    { field: 'description', headerName: 'Deskripsi', width: 100 },
+    { field: 'projectName', headerName: 'Nama Proyek', width: 250 },
+    { field: 'status', headerName: 'Status Project', width:200 },
+    // { field: 'departemen', headerName: 'Departemen', width: 150 },
+    // { field: 'location', headerName: 'Tempat Proyek', width: 150 },
+    { field: 'startProject', headerName: 'Tanggal Berakhir Proyek', width: 220 },
+    { field: 'endProject', headerName: 'Tanggal Berakhir Proyek', width: 220 },
+    // { field: 'description', headerName: 'Deskripsi', width: 100 },
     {
       field: 'action',
       headerName: 'Action',
-      width: 100,
+      width: 140,
       headerAlign: 'center',
       renderCell: (params: GridRenderCellParams) => {
         const onClickHandler = () => {
-          // Aksi yang ingin Anda lakukan ketika tombol ditekan
-          console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
+          navigate('/projects/detail')
+          // console.log('Tombol ditekan untuk baris dengan ID:', params.row.id);
         };
 
         return <Button onClick={onClickHandler}>Detail</Button>;
@@ -47,19 +53,35 @@ const Projects: React.FC = () => {
     },
   ];
 
-  const rows = [];
-  for (let i = 1; i < 10; i++) {
-    rows.push({
-      id: i,
-      projectName: "Tamansari Lagoon",
-      status: "Hold",
-      departemen: "Building",
-      location: "Jakarta Selatan",
-      endProject: "10/12/2024",
-      startProject: "10/12/2020",
-      description: "Wika Building Corp"
-    })
+    const fetchProject = async () => {
+    try {
+      const projectService = new ProjectService();
+      const fetchedProject: Response = await projectService.getAllProject()
+      console.log('fetch project', fetchedProject.data);
+      const projects = fetchedProject.data.map((result:any, index:number) => ({
+        id: index + 1,
+        projectName: result.projectName,
+        status: result.status,
+        departemen: result.departemen,
+        location: result.location,
+        endProject: IsoFormatDate(result.endProject, "YYYY-MM-DD HH:mm:ss"),
+        startProject: IsoFormatDate(result.startProject, "YYYY-MM-DD HH:mm:ss"),
+        description: result.description,
+        pj_proyek : result.pj_proyek
+      }))
+      setRow(projects) 
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
+
+
+
+  useEffect(() => {
+    fetchProject();
+  }, []);
+  
 
   const handleSearchData = (data: SearchProjectEntity) => {
     console.log(data)
@@ -88,7 +110,7 @@ const Projects: React.FC = () => {
           </Grid>
           <ThemeProvider theme={theme}>
             <DataGrid
-              rows={rows}
+              rows={row}
               columns={columns}
             />
           </ThemeProvider>
