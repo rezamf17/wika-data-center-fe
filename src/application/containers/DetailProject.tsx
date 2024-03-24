@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import Navigation from '../components/Navigation'
 import Breadcrumbs from '../components/BreadcrumbsComponent'
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import DetailProjectComponent from '../components/DetailProjectComponent';
 import {
   Container,
   Card,
@@ -15,11 +16,6 @@ import Carousel from '../components/Carousel';
 import { useNavigate } from 'react-router-dom';
 
 const DetailProject: React.FC = () => {
-  const gridStyle = {
-    marginLeft: '1em', 
-    textAlign : 'left',
-    padding : '0.5em'
-  }
 
   const back = {
     width : '15%',
@@ -44,54 +40,7 @@ const DetailProject: React.FC = () => {
           <Breadcrumbs title='Detail Projects' icon={<ApartmentIcon sx={{ mr: 0.5 }} fontSize="inherit" />} />
           <Card sx={{ height: 'auto' }}>
             <Carousel />
-            <Grid container spacing={7} sx={gridStyle}>
-              <Grid item xs={5}>
-                Nama Proyek
-              </Grid>
-              <Grid item xs={5}>
-                test
-              </Grid>
-            </Grid>
-            <Grid container spacing={7} sx={gridStyle}>
-              <Grid item xs={5}>
-                Status Proyek
-              </Grid>
-              <Grid item xs={5}>
-                test
-              </Grid>
-            </Grid>
-            <Grid container spacing={7} sx={gridStyle}>
-              <Grid item xs={5}>
-                Departemen
-              </Grid>
-              <Grid item xs={5}>
-                test
-              </Grid>
-            </Grid>
-            <Grid container spacing={7} sx={gridStyle}>
-              <Grid item xs={5}>
-                Tempat Proyek
-              </Grid>
-              <Grid item xs={5}>
-                test
-              </Grid>
-            </Grid>
-            <Grid container spacing={7} sx={gridStyle}>
-              <Grid item xs={5}>
-                Tanggal Mulai Proyek
-              </Grid>
-              <Grid item xs={5}>
-                test
-              </Grid>
-            </Grid>
-            <Grid container spacing={7} sx={gridStyle}>
-              <Grid item xs={5}>
-                Tanggal Berakhir Proyek
-              </Grid>
-              <Grid item xs={5}>
-                test
-              </Grid>
-            </Grid>
+            <DetailProjectComponent />
             <Stack
               direction="row"
               justifyContent="flex-start"
